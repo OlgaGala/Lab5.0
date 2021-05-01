@@ -1,0 +1,70 @@
+<DragonWrapper>
+  <dragon>
+    <id>1</id>
+    <name>Olga</name>
+    <coordinates>
+      <x>12.0</x>
+      <y>1</y>
+    </coordinates>
+    <creationDate>07 April 2021</creationDate>
+    <age>12</age>
+    <color/>
+    <type>WATER</type>
+    <character>CUNNING</character>
+    <cave>
+      <depth>123</depth>
+      <numberOfTreasures>123</numberOfTreasures>
+    </cave>
+  </dragon>
+  <dragon>
+    <id>2</id>
+    <name>Olga 2</name>
+    <coordinates>
+      <x>1.0</x>
+      <y>2</y>
+    </coordinates>
+    <creationDate>07 April 2021</creationDate>
+    <age>123</age>
+    <color/>
+    <type>WATER</type>
+    <character>CUNNING</character>
+    <cave>
+      <depth>0</depth>
+      <numberOfTreasures>0</numberOfTreasures>
+    </cave>
+  </dragon>
+  <dragon>
+    <id>3</id>
+    <name>123</name>
+    <coordinates>
+      <x>123.0</x>
+      <y>123</y>
+    </coordinates>
+    <creationDate>07 April 2021</creationDate>
+    <age>123</age>
+    <color/>
+    <type>WATER</type>
+    <character>CUNNING</character>
+    <cave>
+      <depth>0</depth>
+      <numberOfTreasures>0</numberOfTreasures>
+    </cave>
+  </dragon>
+  <dragon>
+    <id>4</id>
+    <name>Example</name>
+    <coordinates>
+      <x>12.0</x>
+      <y>12</y>
+    </coordinates>
+    <creationDate>07 April 2021</creationDate>
+    <age>23</age>
+    <color/>
+    <type>WATER</type>
+    <character>CUNNING</character>
+    <cave>
+      <depth>123</depth>
+      <numberOfTreasures>1</numberOfTreasures>
+    </cave>
+  </dragon>
+</DragonWrapper>
