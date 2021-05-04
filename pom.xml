@@ -29,6 +29,21 @@
             <version>2.12.2</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.20</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.reflections/reflections -->
+        <dependency>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections</artifactId>
+            <version>0.9.11</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>
@@ -38,7 +53,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.olga.util.Main</mainClass>
+                            <mainClass>com.olga.Main</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
