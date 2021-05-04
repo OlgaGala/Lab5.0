@@ -11,7 +11,7 @@ import java.util.Scanner;
  * Класс, предоставляющий пользовательский терминал для работы с коллекцией (через Service)
  * Все пользовательские команды поступают сюда, а затем вызывается соответствующи метод Service
  */
-public class Main {
+public class Executor {
 
     /**
      * Класс управления коллекцией, которым мы будем управлять в терминале
@@ -23,7 +23,7 @@ public class Main {
      */
     private UserInput userInput;
 
-    public Main(CollectionService collectionService) {
+    public Executor(CollectionService collectionService) {
         this.collectionService = collectionService;
         this.userInput = new ConsoleUserInput();
     }
@@ -192,14 +192,4 @@ public class Main {
         userInput = new ConsoleUserInput();
     }
 
-    public static void main(String[] args) {
-        CollectionService collectionService = null;
-        try {
-            collectionService = new DragonCollection(System.getenv("XML_FILE"));
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-            System.exit(-1);
-        }
-        new Main(collectionService).start();
-    }
 }
