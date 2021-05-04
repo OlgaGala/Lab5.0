@@ -1,4 +1,4 @@
-package com.olga.util;
+package com.olga.io;
 
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
@@ -13,22 +13,15 @@ import java.util.Stack;
  */
 public class XMLParser {
 
-    private final File file;
-
-    public XMLParser(String fileName) {
-        this.file = new File(fileName);
-    }
-
-    public File getFile() {
-        return file;
-    }
-
     /**
      * Чтение из файла
      * @return - коллекция объектов предметной области
      * @throws Exception - в случае некорректного файла и/или его отсутствия
      */
-    public Stack<Dragon> read() throws Exception {
+    public static Stack<Dragon> read(String fileName) throws Exception {
+
+        File file = new File(fileName);
+
         try(FileReader reader = new FileReader(file)) {
             // Уведомляем пользователя, если файл еще пустой
             if(file.length() == 0) {
@@ -37,8 +30,10 @@ public class XMLParser {
             } else {
                 XmlMapper xmlMapper = new XmlMapper();
                 DragonWrapper wrapper = xmlMapper.readValue(reader, DragonWrapper.class);
-                Stack<Dragon> dataSet = new Stack<>();
-                dataSet = wrapper.getDragon();
+                Stack<Dragon> dataSet = wrapper.getDragon();
+
+                settleIds(dataSet);
+
                 return dataSet;
             }
         } catch (FileNotFoundException e) {
@@ -51,13 +46,12 @@ public class XMLParser {
     /**
      * Запись в файл
      * @param mDataSet - коллекция, которую необходимо записать
-     * @return - Результат работы выполнения
      */
-    public String write(Stack<Dragon> mDataSet) {
+    public static void write(Stack<Dragon> mDataSet, String fileName) {
         XmlMapper mapper = new XmlMapper();
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
 
-        try(OutputStreamWriter output = new OutputStreamWriter(new FileOutputStream(file))) {
+        try(OutputStreamWriter output = new OutputStreamWriter(new FileOutputStream(fileName))) {
             if(mDataSet.size() == 0) {
                 output.write("");
             } else {
@@ -65,10 +59,21 @@ public class XMLParser {
                 wrapper.setDragon(mDataSet);
                 mapper.writeValue(output, wrapper);
             }
-            return "Коллекция была сохранена";
+            return;
         } catch (IOException e) {
             e.printStackTrace();
         }
         throw new RuntimeException("Ошибка сохранения");
+    }
+
+    /**
+     * Метод который переназначает id
+     * Здесь мы просто присваиваем элементам id от 1 до бесконечности в порядке их добавления
+     */
+    private static void settleIds(Stack<Dragon> dragons) {
+        int id = 0;
+        for (Dragon vehicles : dragons) {
+            vehicles.setId(++id);
+        }
     }
 }
