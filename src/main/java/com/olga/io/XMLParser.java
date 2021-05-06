@@ -51,6 +51,8 @@ public class XMLParser {
         XmlMapper mapper = new XmlMapper();
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
 
+        settleIds(mDataSet);
+
         try(OutputStreamWriter output = new OutputStreamWriter(new FileOutputStream(fileName))) {
             if(mDataSet.size() == 0) {
                 output.write("");
