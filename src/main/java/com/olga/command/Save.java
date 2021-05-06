@@ -8,19 +8,16 @@ import lombok.Setter;
 import java.util.Stack;
 
 @Getter @Setter
-public class Save extends Command<Void> {
+public class Save extends Command {
 
-    private String fileName;
-
-    public Save(Stack<Dragon> dragonList, String fileName) {
+    public Save(Stack<Dragon> dragonList) {
         super(dragonList);
-
-        this.fileName = fileName;
     }
 
     @Override
-    public Void execute() {
-        XMLParser.write(getDragonList(), fileName);
+    public String execute(String ignore) {
+
+        XMLParser.write(getDragonList(), System.getenv("XML_FILE"));
 
         return null;
     }

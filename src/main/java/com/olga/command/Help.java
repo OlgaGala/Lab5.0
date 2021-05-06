@@ -7,14 +7,14 @@ import java.lang.reflect.Constructor;
 import java.util.Set;
 import java.util.Stack;
 
-public class Help extends Command<String> {
+public class Help extends Command {
 
     public Help(Stack<Dragon> dragonList) {
         super(dragonList);
     }
 
     @Override
-    public String execute() {
+    public String execute(String ignore) {
 
         Reflections reflections = new Reflections("com.olga.command");
         Set<Class<? extends Command>> classes = reflections.getSubTypesOf(Command.class);
@@ -24,8 +24,8 @@ public class Help extends Command<String> {
         classes.forEach(c -> {
 
             try {
-                Constructor<? extends Command> constructor = c.getConstructor();
-                Command command = constructor.newInstance();
+                Constructor<? extends Command> constructor = c.getConstructor(Stack.class);
+                Command command = constructor.newInstance(getDragonList());
                 result.append(command.toString()).append("\n");
             } catch (Exception e) {
                 e.printStackTrace();

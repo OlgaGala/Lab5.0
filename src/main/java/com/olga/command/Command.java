@@ -1,21 +1,30 @@
 package com.olga.command;
 
 import com.olga.dragon.Dragon;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.olga.print.api.Formatter;
+import com.olga.print.implementation.FormatterImpl;
+import lombok.*;
 
 import java.util.Stack;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter @Setter
-public abstract class Command<ReturnType> {
+public abstract class Command {
 
+    @Getter(AccessLevel.PROTECTED)
+    @Setter(AccessLevel.PROTECTED)
     private Stack<Dragon> dragonList;
 
-    abstract ReturnType execute();
+    @Getter(AccessLevel.PROTECTED)
+    @Setter(AccessLevel.PROTECTED)
+    private Formatter formatter;
+
+    public Command(Stack<Dragon> dragonList) {
+        this.dragonList = dragonList;
+        this.formatter = new FormatterImpl();
+    }
+
+    public abstract String execute(String args) throws Exception;
 
     @Override
     public String toString() {

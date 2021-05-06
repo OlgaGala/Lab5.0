@@ -10,22 +10,21 @@ import java.util.Stack;
 import java.util.stream.Collectors;
 
 @Getter @Setter
-public class FilterLessThanCharacter extends Command<List<Dragon>> {
+public class FilterLessThanCharacter extends Command {
 
-    private DragonCharacter dragonCharacter;
-
-    public FilterLessThanCharacter(Stack<Dragon> dragonList, DragonCharacter dragonCharacter) {
+    public FilterLessThanCharacter(Stack<Dragon> dragonList) {
         super(dragonList);
-
-        this.dragonCharacter = dragonCharacter;
     }
 
     @Override
-    public List<Dragon> execute() {
-        return getDragonList()
+    public String execute(String character) {
+
+        List<Dragon> resultList = getDragonList()
                 .stream()
-                .filter(d -> d.getCharacter().equals(dragonCharacter))
+                .filter(d -> d.getCharacter().equals(DragonCharacter.valueOf(character)))
                 .collect(Collectors.toList());
+
+        return getFormatter().formatCollection(resultList);
     }
 
     @Override

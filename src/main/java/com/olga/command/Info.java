@@ -13,30 +13,26 @@ import java.util.Formatter;
 import java.util.Stack;
 
 @Getter @Setter
-public class Info extends Command<String> {
+public class Info extends Command {
 
-    private String fileName;
-
-    public Info(Stack<Dragon> dragonList, String fileName) {
+    public Info(Stack<Dragon> dragonList) {
         super(dragonList);
-
-        this.fileName = fileName;
     }
 
     @Override
-    public String execute() {
+    public String execute(String ignore) {
         String fileCreationDate = null;
         String elementType = null;
 
         try {
-            BasicFileAttributes attr = Files.readAttributes(new File(fileName).toPath(), BasicFileAttributes.class);
+            BasicFileAttributes attr = Files.readAttributes(new File(System.getenv("XML_FILE")).toPath(), BasicFileAttributes.class);
             fileCreationDate = String.valueOf(attr.creationTime());
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         try {
-            Field hashSet = this.getClass().getDeclaredField("mDataSet");
+            Field hashSet = this.getClass().getSuperclass().getDeclaredField("dragonList");
             elementType = String.valueOf(hashSet.getGenericType());
         } catch (NoSuchFieldException e) {
             e.printStackTrace();

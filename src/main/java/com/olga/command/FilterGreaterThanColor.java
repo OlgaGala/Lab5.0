@@ -10,22 +10,21 @@ import java.util.Stack;
 import java.util.stream.Collectors;
 
 @Getter @Setter
-public class FilterGreaterThanColor extends Command<List<Dragon>> {
+public class FilterGreaterThanColor extends Command {
 
-    private Color color;
-
-    public FilterGreaterThanColor(Stack<Dragon> dragonList, Color color) {
+    public FilterGreaterThanColor(Stack<Dragon> dragonList) {
         super(dragonList);
-
-        this.color = color;
     }
 
     @Override
-    public List<Dragon> execute() {
-        return getDragonList()
+    public String execute(String color) {
+
+        List<Dragon> resultList = getDragonList()
                 .stream()
-                .filter(d -> d.getColor().equals(color))
+                .filter(d -> d.getColor().equals(Color.valueOf(color)))
                 .collect(Collectors.toList());
+
+        return getFormatter().formatCollection(resultList);
     }
 
     @Override

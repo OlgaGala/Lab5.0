@@ -8,19 +8,15 @@ import java.util.List;
 import java.util.Stack;
 
 @Getter @Setter
-public class RemoveAtIndex extends Command<Dragon> {
+public class RemoveAtIndex extends Command {
 
-    private int index;
-
-    public RemoveAtIndex(Stack<Dragon> dragonList, int index) {
+    public RemoveAtIndex(Stack<Dragon> dragonList) {
         super(dragonList);
-
-        this.index = index;
     }
 
     @Override
-    public Dragon execute() {
-        return getDragonList().remove(index);
+    public String execute(String index) {
+        return getFormatter().formatSingleElement(getDragonList().remove(Integer.parseInt(index)));
     }
 
     @Override

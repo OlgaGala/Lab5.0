@@ -2,26 +2,30 @@ package com.olga.command;
 
 import com.olga.dragon.Dragon;
 import com.olga.dragon.DragonCave;
+import com.olga.io.ConsoleUserInput;
+import com.olga.io.UserInput;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
 import java.util.Stack;
 
 @Getter @Setter
-public class RemoveAllByCave extends Command<Boolean> {
+public class RemoveAllByCave extends Command {
 
-    private DragonCave dragonCave;
+    private UserInput userInput;
 
-    public RemoveAllByCave(Stack<Dragon> dragonList, DragonCave dragonCave) {
+    public RemoveAllByCave(Stack<Dragon> dragonList) {
         super(dragonList);
 
-        this.dragonCave = dragonCave;
+        this.userInput = new ConsoleUserInput();
     }
 
     @Override
-    public Boolean execute() {
-        return getDragonList().removeIf(d -> d.getCave().equals(dragonCave));
+    public String execute(String cave) throws Exception {
+
+        DragonCave dragonCave = userInput.enterCave();
+
+        return getFormatter().formatBooleanOperation(getDragonList().removeIf(d -> d.getCave().equals(dragonCave)));
     }
 
     @Override

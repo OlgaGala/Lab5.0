@@ -8,19 +8,15 @@ import java.util.List;
 import java.util.Stack;
 
 @Getter @Setter
-public class RemoveById extends Command<Boolean> {
+public class RemoveById extends Command {
 
-    private Integer id;
-
-    public RemoveById(Stack<Dragon> dragonList, Integer id) {
+    public RemoveById(Stack<Dragon> dragonList) {
         super(dragonList);
-
-        this.id = id;
     }
 
     @Override
-    public Boolean execute() {
-        return getDragonList().removeIf(d -> d.getId().equals(id));
+    public String execute(String id) {
+        return getFormatter().formatBooleanOperation(getDragonList().removeIf(d -> d.getId().equals(Integer.parseInt(id))));
     }
 
     @Override

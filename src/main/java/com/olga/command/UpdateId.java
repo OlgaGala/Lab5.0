@@ -1,29 +1,34 @@
 package com.olga.command;
 
 import com.olga.dragon.Dragon;
+import com.olga.io.ConsoleUserInput;
+import com.olga.io.UserInput;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Stack;
 
 @Getter @Setter
-public class UpdateId extends Command<Void> {
+public class UpdateId extends Command {
 
-    private Integer id;
-    private Dragon dragon;
+    private UserInput userInput;
 
-    public UpdateId(Stack<Dragon> dragonList, Integer id, Dragon dragon) {
+    public UpdateId(Stack<Dragon> dragonList) {
         super(dragonList);
 
-        this.id = id;
-        this.dragon = dragon;
+        userInput = new ConsoleUserInput();
     }
 
     @Override
-    public Void execute() {
+    public String execute(String id) {
+
         getDragonList().forEach(d -> {
-            if(d.getId().equals(id)) {
-                d = dragon;
+            if(d.getId().equals(Integer.parseInt(id))) {
+                try {
+                    d = userInput.enterElement();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
 

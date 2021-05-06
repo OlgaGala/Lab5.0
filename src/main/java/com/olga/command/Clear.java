@@ -4,14 +4,14 @@ import com.olga.dragon.Dragon;
 
 import java.util.Stack;
 
-public class Clear extends Command<Void> {
+public class Clear extends Command {
 
     public Clear(Stack<Dragon> dragonList) {
         super(dragonList);
     }
 
     @Override
-    public Void execute() {
+    public String execute(String ignore) {
         getDragonList().clear();
         return null;
     }

@@ -1,28 +1,30 @@
 package com.olga.command;
 
 import com.olga.dragon.Dragon;
+import com.olga.io.ConsoleUserInput;
+import com.olga.io.UserInput;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
 import java.util.Stack;
 
 @Getter @Setter
-public class InsertAtIndex extends Command<Dragon> {
+public class InsertAtIndex extends Command {
 
-    private Dragon dragon;
-    private int index;
+    private UserInput consoleUserInput;
 
-    public InsertAtIndex(Stack<Dragon> dragonList, int index, Dragon dragon) {
+    public InsertAtIndex(Stack<Dragon> dragonList) {
         super(dragonList);
 
-        this.dragon = dragon;
-        this.index = index;
+        this.consoleUserInput = new ConsoleUserInput();
     }
 
     @Override
-    public Dragon execute() {
-        return getDragonList().set(index, dragon);
+    public String execute(String index) throws Exception {
+
+        Dragon dragon = consoleUserInput.enterElement();
+
+        return getFormatter().formatSingleElement(getDragonList().set(Integer.parseInt(index), dragon));
     }
 
     @Override

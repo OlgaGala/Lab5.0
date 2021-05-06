@@ -2,17 +2,16 @@ package com.olga.command;
 
 import com.olga.dragon.Dragon;
 
-import java.util.List;
 import java.util.Stack;
 
-public class Exit extends Command<Void> {
+public class Exit extends Command {
 
     public Exit(Stack<Dragon> dragonList) {
         super(dragonList);
     }
 
     @Override
-    public Void execute() {
+    public String execute(String ignore) {
         System.exit(0);
         return null;
     }
