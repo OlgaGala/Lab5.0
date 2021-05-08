@@ -22,7 +22,7 @@ public class FilterLessThanCharacter extends Command {
 
         List<Dragon> resultList = getDragonList()
                 .stream()
-                .filter(d -> d.getCharacter().equals(DragonCharacter.valueOf(character)))
+                .filter(d -> d.getCharacter() != null && d.getCharacter().compareTo(DragonCharacter.valueOf(character)) < 0)
                 .collect(Collectors.toList());
 
         return getFormatter().formatCollection(resultList);

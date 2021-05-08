@@ -7,6 +7,8 @@ import com.olga.io.UserInput;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.ConstraintViolation;
+import java.util.Set;
 import java.util.Stack;
 
 @Getter @Setter
@@ -25,9 +27,16 @@ public class Add extends Command {
     public String execute(String ignore) throws Exception {
 
         Dragon dragon = consoleUserInput.enterElement();
-        getDragonList().add(dragon);
 
-        return null;
+        Set<ConstraintViolation<Dragon>> violations = getValidator().validate(dragon);
+
+        if(violations.isEmpty()) {
+            getDragonList().add(dragon);
+            return getFormatter().formatBooleanOperation(true, getMessenger());
+        }
+
+        violations.forEach(v -> System.err.println(v.getMessage()));
+        return getFormatter().formatBooleanOperation(false, getMessenger());
     }
 
     @Override

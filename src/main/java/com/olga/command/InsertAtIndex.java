@@ -7,6 +7,8 @@ import com.olga.io.UserInput;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.ConstraintViolation;
+import java.util.Set;
 import java.util.Stack;
 
 @Getter @Setter
@@ -25,10 +27,17 @@ public class InsertAtIndex extends Command {
 
         Dragon dragon = consoleUserInput.enterElement();
 
-        return getFormatter().formatBooleanOperation(
-                getDragonList().set(Integer.parseInt(index), dragon) != null,
-                getMessenger()
-        );
+        Set<ConstraintViolation<Dragon>> violations = getValidator().validate(dragon);
+
+        if(violations.isEmpty()) {
+            return getFormatter().formatBooleanOperation(
+                    getDragonList().set(Integer.parseInt(index), dragon) != null,
+                    getMessenger()
+            );
+        }
+
+        violations.forEach(v -> System.err.println(v.getMessage()));
+        return getFormatter().formatBooleanOperation(false, getMessenger());
     }
 
     @Override

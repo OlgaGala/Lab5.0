@@ -8,6 +8,8 @@ import com.olga.io.UserInput;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.ConstraintViolation;
+import java.util.Set;
 import java.util.Stack;
 
 @Getter @Setter
@@ -26,10 +28,17 @@ public class RemoveAllByCave extends Command {
 
         DragonCave dragonCave = userInput.enterCave();
 
-        return getFormatter().formatBooleanOperation(
-                getDragonList().removeIf(d -> d.getCave().equals(dragonCave)),
-                getMessenger()
-        );
+        Set<ConstraintViolation<DragonCave>> violations = getValidator().validate(dragonCave);
+
+        if(violations.isEmpty()) {
+            return getFormatter().formatBooleanOperation(
+                    getDragonList().removeIf(d -> d.getCave().equals(dragonCave)),
+                    getMessenger()
+            );
+        }
+
+        violations.forEach(v -> System.err.println(v.getMessage()));
+        return getFormatter().formatBooleanOperation(false, getMessenger());
     }
 
     @Override

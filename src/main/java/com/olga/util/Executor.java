@@ -3,7 +3,6 @@ package com.olga.util;
 import com.olga.command.Exit;
 import com.olga.command.manager.CommandManager;
 import com.olga.dragon.Dragon;
-import com.olga.i18n.Language;
 import com.olga.i18n.Messenger;
 import com.olga.print.api.Formatter;
 import com.olga.print.api.Printer;
@@ -49,7 +48,11 @@ public class Executor {
                 // Вызываем команду и выводим результат
                 // В случае, если метод execute_command бросил исключение,
                 // оно обрабатывается, а программа продолжает работу.
-                commandManager.executeUserCommand(response);
+                if(response.equals("")) {
+                    System.out.println(getCommandManager().getMessenger().getMessage("enterValidData"));
+                } else {
+                    commandManager.executeUserCommand(response);
+                }
 
             } catch (Exception e) {
                 System.err.println(e.getMessage());

@@ -92,7 +92,7 @@ public class ConsoleUserInput extends UserInput {
         System.out.println(messenger.getMessage("askForNull"));
         String result = new Scanner(System.in).nextLine();
 
-        return new Dragon(name, coordinates, age, color, type, character, result.equals("NULL") ? null : enterCave());
+        return new Dragon(name, coordinates, age, color, type, character, result.equals("NULL") ? new DragonCave() : enterCave());
     }
 
     @Override

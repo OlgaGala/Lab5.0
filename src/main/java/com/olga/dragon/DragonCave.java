@@ -1,11 +1,17 @@
 package com.olga.dragon;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
 
 public class DragonCave implements Serializable {
 
+
     private long depth;
+
+    @NotNull(message = "Treasures can't be null")
+    @Min(value = 1, message = "Treasures can't be less than 1")
     private Long numberOfTreasures; //Поле не может быть null, Значение поля должно быть больше 0
 
     public DragonCave(long depth, Long numberOfTreasures) {

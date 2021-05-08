@@ -14,7 +14,7 @@ public class Clear extends Command {
     @Override
     public String execute(String ignore) {
         getDragonList().clear();
-        return null;
+        return getFormatter().formatBooleanOperation(true, getMessenger());
     }
 
     @Override

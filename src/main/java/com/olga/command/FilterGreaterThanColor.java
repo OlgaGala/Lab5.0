@@ -22,7 +22,7 @@ public class FilterGreaterThanColor extends Command {
 
         List<Dragon> resultList = getDragonList()
                 .stream()
-                .filter(d -> d.getColor().equals(Color.valueOf(color)))
+                .filter(d -> d.getColor() != null && d.getColor().compareTo(Color.valueOf(color)) > 0)
                 .collect(Collectors.toList());
 
         return getFormatter().formatCollection(resultList);

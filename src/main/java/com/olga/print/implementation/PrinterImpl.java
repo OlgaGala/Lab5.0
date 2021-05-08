@@ -4,6 +4,8 @@ import com.olga.print.api.Printer;
 
 public class PrinterImpl implements Printer {
     public void printResult(String result) {
-        System.out.println(result);
+        if(result != null) {
+            System.out.println(result);
+        }
     }
 }

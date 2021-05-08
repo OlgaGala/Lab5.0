@@ -84,4 +84,55 @@
       <numberOfTreasures>100</numberOfTreasures>
     </cave>
   </dragon>
+  <dragon>
+    <id>6</id>
+    <name>Alek</name>
+    <coordinates>
+      <x>1.0</x>
+      <y>11</y>
+    </coordinates>
+    <creationDate>09 May 2021</creationDate>
+    <age>12112</age>
+    <color>BLACK</color>
+    <type>WATER</type>
+    <character>CHAOTIC</character>
+    <cave>
+      <depth>1</depth>
+      <numberOfTreasures>1</numberOfTreasures>
+    </cave>
+  </dragon>
+  <dragon>
+    <id>7</id>
+    <name>asd</name>
+    <coordinates>
+      <x>1.0</x>
+      <y>1</y>
+    </coordinates>
+    <creationDate>09 May 2021</creationDate>
+    <age>1</age>
+    <color/>
+    <type>AIR</type>
+    <character>CUNNING</character>
+    <cave>
+      <depth>1</depth>
+      <numberOfTreasures>1</numberOfTreasures>
+    </cave>
+  </dragon>
+  <dragon>
+    <id>8</id>
+    <name>Al</name>
+    <coordinates>
+      <x>1.0</x>
+      <y>1</y>
+    </coordinates>
+    <creationDate>09 May 2021</creationDate>
+    <age>12</age>
+    <color>BLACK</color>
+    <type>WATER</type>
+    <character>CUNNING</character>
+    <cave>
+      <depth>0</depth>
+      <numberOfTreasures/>
+    </cave>
+  </dragon>
 </DragonWrapper>

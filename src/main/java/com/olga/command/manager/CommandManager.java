@@ -60,7 +60,7 @@ public class CommandManager {
             }
         });
 
-        return command[0].execute(args);
+        return command[0] != null ? command[0].execute(args) : messenger.getMessage("noSuchCommand");
     }
 
     public String executeCommand(String commandArgs) throws Exception {

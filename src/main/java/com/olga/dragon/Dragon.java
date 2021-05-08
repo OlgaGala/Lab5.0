@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -19,15 +21,29 @@ public class Dragon implements Comparable<Dragon>, Serializable {
 
     public static Messenger messenger;
 
+    @NotNull(message = "id can't be null")
     private Integer id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
+
+    @NotNull(message = "Name can't be null")
     private String name; //Поле не может быть null, Строка не может быть пустой
+
+    @NotNull(message = "Coordinates can't be null")
     private Coordinates coordinates; //Поле не может быть null
 
+    @NotNull(message = "Creation date can't be null")
     private String creationDate; // Поле не может быть null, Значение этого поля должно генерироваться автоматически
+
+    @Min(value = 1, message = "Age can't be less than 1")
     private long age; //Значение поля должно быть больше 0
+
     private Color color; //Поле может быть null
+
+    @NotNull(message = "Type can't be null")
     private DragonType type; //Поле не может быть null
+
+    @NotNull(message = "Character can't be null")
     private DragonCharacter character; //Поле не может быть null
+
     private DragonCave cave; //Поле может быть null
 
     public Dragon(String name,
@@ -76,16 +92,16 @@ public class Dragon implements Comparable<Dragon>, Serializable {
 
     @Override
     public String toString() {
-        return messenger.getMessage("dragon") + "{" +
-                messenger.getMessage("id") + " = " + id +
-                messenger.getMessage("name") + " = '" + name + '\'' +
-                messenger.getMessage("coordinates") + " = " + coordinates +
-                messenger.getMessage("creationDate") + " = " + creationDate +
-                messenger.getMessage("age") + " = " + age +
-                messenger.getMessage("color") + " = " + color +
-                messenger.getMessage("type") + " = " + type +
-                messenger.getMessage("character") + " = " + character +
-                messenger.getMessage("cave") + " = " + cave +
+        return messenger.getMessage("dragon") + "{" + "\n" +
+                messenger.getMessage("id") + " = " + id + "\n" +
+                messenger.getMessage("name") + " = '" + name + '\'' + "\n" +
+                messenger.getMessage("coordinates") + " = " + coordinates + "\n" +
+                messenger.getMessage("creationDate") + " = " + creationDate + "\n" +
+                messenger.getMessage("age") + " = " + age + "\n" +
+                messenger.getMessage("color") + " = " + color + "\n" +
+                messenger.getMessage("type") + " = " + type + "\n" +
+                messenger.getMessage("character") + " = " + character + "\n" +
+                messenger.getMessage("cave") + " = " + cave + "\n" +
                 "}\n";
     }
 

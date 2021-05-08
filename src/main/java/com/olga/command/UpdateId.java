@@ -7,6 +7,8 @@ import com.olga.io.UserInput;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.ConstraintViolation;
+import java.util.Set;
 import java.util.Stack;
 
 @Getter @Setter
@@ -23,20 +25,25 @@ public class UpdateId extends Command {
     @Override
     public String execute(String id) {
 
-        boolean result = false;
-
         for (Dragon d: getDragonList()) {
             if(d.getId().equals(Integer.parseInt(id))) {
                 try {
-                    d = userInput.enterElement();
-                    result = true;
+                    Dragon dragon = userInput.enterElement();
+                    Set<ConstraintViolation<Dragon>> violations = getValidator().validate(dragon);
+
+                    if(violations.isEmpty()) {
+                        d = dragon;
+                        return getFormatter().formatBooleanOperation(true, getMessenger());
+                    }
+                    violations.forEach(v -> System.err.println(v.getMessage()));
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         }
 
-        return getFormatter().formatBooleanOperation(result, getMessenger());
+        return getFormatter().formatBooleanOperation(false, getMessenger());
     }
 
     @Override

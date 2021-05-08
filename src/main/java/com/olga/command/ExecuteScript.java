@@ -39,7 +39,7 @@ public class ExecuteScript extends Command {
 
         this.userInput = new FileUserInput(new Scanner(new File(fileName)), getMessenger());
 
-        if(!new File(fileName).exists()) throw new IOException("Файл не найден");
+        if(!new File(fileName).exists()) throw new IOException(getMessenger().getMessage("fileNotFound"));
 
         try(Scanner scanner = new Scanner(new File(fileName))) {
 
@@ -53,7 +53,7 @@ public class ExecuteScript extends Command {
 
                 // Обязательно нужно проверить условие зацикливания, чтобы скрипт не вызвал сам себя
                 if(response.equals("execute_script " + fileName)) {
-                    result.append("Нельзя вызывать файл из самого себя!" + "\n");
+                    result.append(getMessenger().getMessage("recursiveCallScript")).append("\n");
                 } else {
                     result.append(new CommandManager().executeCommand(response)).append("\n");
                 }

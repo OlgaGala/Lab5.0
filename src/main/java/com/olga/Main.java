@@ -7,7 +7,6 @@ import com.olga.io.XMLParser;
 import com.olga.print.implementation.FormatterImpl;
 import com.olga.print.implementation.PrinterImpl;
 import com.olga.util.ExecutorBuilder;
-
 import java.util.ResourceBundle;
 
 public class Main {
