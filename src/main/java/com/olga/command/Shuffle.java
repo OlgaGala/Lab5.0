@@ -22,6 +22,6 @@ public class Shuffle extends Command {
 
     @Override
     public String toString() {
-        return super.toString() + ": " + "Перемешать элементы коллекции в случайном порядке";
+        return super.toString() + ": " + getMessenger().getMessage("infoShuffle");
     }
 }

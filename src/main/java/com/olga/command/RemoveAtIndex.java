@@ -25,6 +25,6 @@ public class RemoveAtIndex extends Command {
 
     @Override
     public String toString() {
-        return super.toString() + ": " + "Удалить элемент в заданной позиции";
+        return super.toString() + ": " + getMessenger().getMessage("infoRemoveAtIndex");
     }
 }

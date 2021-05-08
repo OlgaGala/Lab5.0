@@ -1,6 +1,8 @@
 package com.olga.io;
 
 import com.olga.dragon.*;
+import com.olga.i18n.Messenger;
+import lombok.AllArgsConstructor;
 
 import java.util.Scanner;
 
@@ -8,13 +10,11 @@ import java.util.Scanner;
  * Класс, который отвечает за источник ввода элементов
  * Хранит логику ввода в зависимости от источника
  */
+@AllArgsConstructor
 public abstract class UserInput {
 
     private final Scanner in;
-
-    public UserInput(Scanner in) {
-        this.in = in;
-    }
+    public final Messenger messenger;
 
     /**
      * Логика ввода элемента. Метод нужно переопределить в суб-классах
@@ -40,7 +40,7 @@ public abstract class UserInput {
             if(name.equals("")) throw new IllegalArgumentException();
             return name;
         } catch (Exception e) {
-            throw new Exception("Некорректный ввод.");
+            throw new Exception(messenger.getMessage("invalidInput"));
         }
     }
 
@@ -51,19 +51,19 @@ public abstract class UserInput {
             int y = Integer.parseInt(arr[1]);
             return new Coordinates(x,y);
         } catch (Exception e) {
-            throw new Exception("Некорректный ввод.");
+            throw new Exception(messenger.getMessage("invalidInput"));
         }
     }
 
     public long readAge() throws Exception {
         try {
             long result = Long.parseLong(in.nextLine());
-            if(result <= 0) throw new IllegalArgumentException("Значение поля должно быть больше нуля!");
+            if(result <= 0) throw new IllegalArgumentException(messenger.getMessage("inputGreaterZero"));
             return result;
         } catch (IllegalArgumentException e) {
             throw new Exception(e.getMessage());
         } catch (Exception e) {
-            throw new Exception("Некорректный ввод.");
+            throw new Exception(messenger.getMessage("invalidInput"));
         }
     }
 
@@ -76,7 +76,7 @@ public abstract class UserInput {
             }
             return organizationType;
         } catch (Exception e) {
-            throw new Exception("Некорректный ввод.");
+            throw new Exception(messenger.getMessage("invalidInput"));
         }
     }
 
@@ -87,11 +87,11 @@ public abstract class UserInput {
             if(!response.equals("")) {
                 organizationType = DragonType.valueOf(response);
             } else {
-                throw new Exception("Поле не может быть null");
+                throw new Exception(messenger.getMessage("notNullField"));
             }
             return organizationType;
         } catch (Exception e) {
-            throw new Exception("Некорректный ввод.");
+            throw new Exception(messenger.getMessage("invalidInput"));
         }
     }
 
@@ -102,11 +102,11 @@ public abstract class UserInput {
             if(!response.equals("")) {
                 organizationType = DragonCharacter.valueOf(response);
             } else {
-                throw new Exception("Поле не может быть null");
+                throw new Exception(messenger.getMessage("notNullField"));
             }
             return organizationType;
         } catch (Exception e) {
-            throw new Exception("Некорректный ввод.");
+            throw new Exception(messenger.getMessage("invalidInput"));
         }
     }
 
@@ -114,7 +114,7 @@ public abstract class UserInput {
         try {
             return Long.parseLong(in.nextLine());
         } catch (Exception e) {
-            throw new Exception("Некорректный ввод.");
+            throw new Exception(messenger.getMessage("invalidInput"));
         }
     }
 
@@ -122,13 +122,13 @@ public abstract class UserInput {
         try {
             Long result = Long.parseLong(in.nextLine());
             if(result <= 0) {
-                throw new IllegalArgumentException("Значение поля должно быть больше нуля!");
+                throw new IllegalArgumentException(messenger.getMessage("inputGreaterZero"));
             }
             return result;
         } catch (IllegalArgumentException e) {
             throw new Exception(e.getMessage());
         } catch (Exception e) {
-            throw new Exception("Некорректный ввод.");
+            throw new Exception(messenger.getMessage("invalidInput"));
         }
     }
 }

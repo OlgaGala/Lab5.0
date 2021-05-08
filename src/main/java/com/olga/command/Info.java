@@ -49,6 +49,6 @@ public class Info extends Command {
 
     @Override
     public String toString() {
-        return super.toString() + ": " + "Вывести информацию о коллекции";
+        return super.toString() + ": " + getMessenger().getMessage("infoInfo");
     }
 }

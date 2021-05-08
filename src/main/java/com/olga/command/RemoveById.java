@@ -25,6 +25,6 @@ public class RemoveById extends Command {
 
     @Override
     public String toString() {
-        return super.toString() + ": " + "Удалить элемент, ID которого равен заданному";
+        return super.toString() + ": " + getMessenger().getMessage("infoRemoveById");
     }
 }

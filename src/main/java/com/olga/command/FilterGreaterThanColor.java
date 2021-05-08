@@ -30,6 +30,6 @@ public class FilterGreaterThanColor extends Command {
 
     @Override
     public String toString() {
-        return super.toString() + ": " + "Вывести элементы, значение поля color которых больше заданного";
+        return super.toString() + ": " + getMessenger().getMessage("infoFilterGreaterThanColor");
     }
 }

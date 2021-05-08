@@ -4,6 +4,9 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.olga.dragon.Dragon;
 import com.olga.dragon.DragonWrapper;
+import com.olga.i18n.Messenger;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.*;
 import java.util.Stack;
@@ -11,7 +14,10 @@ import java.util.Stack;
 /**
  * Класс, реализующий логику преобразования коллекции в XML файл
  */
+@Getter @Setter
 public class XMLParser {
+
+    public static Messenger messenger;
 
     /**
      * Чтение из файла
@@ -25,7 +31,7 @@ public class XMLParser {
         try(FileReader reader = new FileReader(file)) {
             // Уведомляем пользователя, если файл еще пустой
             if(file.length() == 0) {
-                System.out.println("Файл пустой. Вы должны заполнить его, прежде чем использовать.");
+                System.out.println(messenger.getMessage("emptyFile"));
                 return new Stack<>(); //
             } else {
                 XmlMapper xmlMapper = new XmlMapper();
@@ -37,9 +43,9 @@ public class XMLParser {
                 return dataSet;
             }
         } catch (FileNotFoundException e) {
-            throw new Exception("Файл не найден", e);
+            throw new Exception(messenger.getMessage("fileNotFound"), e);
         } catch (IOException e) {
-            throw new Exception("Проблемы с чтением файла", e);
+            throw new Exception(messenger.getMessage("readingError"), e);
         }
     }
 
@@ -65,7 +71,7 @@ public class XMLParser {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        throw new RuntimeException("Ошибка сохранения");
+        throw new RuntimeException(messenger.getMessage("savingError"));
     }
 
     /**

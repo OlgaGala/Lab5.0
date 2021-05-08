@@ -38,6 +38,6 @@ public class Help extends Command {
 
     @Override
     public String toString() {
-        return super.toString() + ": " + "Вывести справку по доступным командам";
+        return super.toString() + ": " + getMessenger().getMessage("infoHelp");
     }
 }

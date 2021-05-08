@@ -19,6 +19,6 @@ public class Show extends Command {
 
     @Override
     public String toString() {
-        return super.toString() + ": " + "Вывести коллекцию";
+        return super.toString() + ": " + getMessenger().getMessage("infoShow");
     }
 }

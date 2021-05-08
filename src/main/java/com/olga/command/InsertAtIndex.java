@@ -17,7 +17,7 @@ public class InsertAtIndex extends Command {
     public InsertAtIndex(Stack<Dragon> dragonList, Messenger messenger) {
         super(dragonList, messenger);
 
-        this.consoleUserInput = new ConsoleUserInput();
+        this.consoleUserInput = new ConsoleUserInput(messenger);
     }
 
     @Override
@@ -33,6 +33,6 @@ public class InsertAtIndex extends Command {
 
     @Override
     public String toString() {
-        return super.toString() + ": " + "Добавить элемент в заданную позицию";
+        return super.toString() + ": " + getMessenger().getMessage("infoInsertAtIndex");
     }
 }

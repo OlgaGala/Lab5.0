@@ -25,6 +25,6 @@ public class Save extends Command {
 
     @Override
     public String toString() {
-        return super.toString() + ": " + "Сохранить коллекцию в файл";
+        return super.toString() + ": " + getMessenger().getMessage("infoSave");
     }
 }

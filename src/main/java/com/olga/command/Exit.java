@@ -19,6 +19,6 @@ public class Exit extends Command {
 
     @Override
     public String toString() {
-        return super.toString() + ": " + "Завершить программу (без сохранения в файл)";
+        return super.toString() + ": " + getMessenger().getMessage("infoExit");
     }
 }

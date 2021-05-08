@@ -2,6 +2,7 @@ package com.olga.io;
 
 import com.olga.dragon.Dragon;
 import com.olga.dragon.DragonCave;
+import com.olga.i18n.Messenger;
 
 import java.util.Scanner;
 
@@ -10,8 +11,8 @@ import java.util.Scanner;
  */
 public class FileUserInput extends UserInput {
 
-    public FileUserInput(Scanner in) {
-        super(in);
+    public FileUserInput(Scanner in, Messenger messenger) {
+        super(in, messenger);
     }
 
     /**
@@ -39,7 +40,7 @@ public class FileUserInput extends UserInput {
 
     @Override
     public DragonCave enterCave() throws Exception {
-        System.out.println("Введите NULL, чтобы не вводить характеристики пещеры (Или любое другое значение, чтобы продолжить):");
+        System.out.println(messenger.getMessage("askForNull"));
         String result = new Scanner(System.in).nextLine();
         return result.equals("NULL") ? null : new DragonCave(readDepth(), readNumberOfTreasures());
     }

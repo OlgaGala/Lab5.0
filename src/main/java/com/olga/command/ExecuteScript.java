@@ -37,7 +37,7 @@ public class ExecuteScript extends Command {
      */
     public String execute_script(String fileName) throws Exception {
 
-        this.userInput = new FileUserInput(new Scanner(new File(fileName)));
+        this.userInput = new FileUserInput(new Scanner(new File(fileName)), getMessenger());
 
         if(!new File(fileName).exists()) throw new IOException("Файл не найден");
 
@@ -71,6 +71,6 @@ public class ExecuteScript extends Command {
 
     @Override
     public String toString() {
-        return super.toString() + ": " + "Считать и исполнить скрипт из файла";
+        return super.toString() + ": " + getMessenger().getMessage("infoExecuteScript");
     }
 }

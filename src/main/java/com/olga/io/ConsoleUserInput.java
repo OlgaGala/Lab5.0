@@ -1,6 +1,7 @@
 package com.olga.io;
 
 import com.olga.dragon.*;
+import com.olga.i18n.Messenger;
 
 import java.util.Scanner;
 
@@ -9,8 +10,8 @@ import java.util.Scanner;
  */
 public class ConsoleUserInput extends UserInput {
 
-    public ConsoleUserInput() {
-        super(new Scanner(System.in));
+    public ConsoleUserInput(Messenger messenger) {
+        super(new Scanner(System.in), messenger);
     }
 
     /**
@@ -29,7 +30,7 @@ public class ConsoleUserInput extends UserInput {
         DragonCharacter character;
 
         while (true) {
-            System.out.println("Введите имя:");
+            System.out.println(messenger.getMessage("enterName"));
             try {
                 name = readName();
                 break;
@@ -39,7 +40,7 @@ public class ConsoleUserInput extends UserInput {
         }
 
         while (true) {
-            System.out.println("Введите координаты (Double, int через пробел):");
+            System.out.println(messenger.getMessage("enterCoordinates"));
             try {
                 coordinates = readCoordinates();
                 break;
@@ -49,7 +50,7 @@ public class ConsoleUserInput extends UserInput {
         }
 
         while (true) {
-            System.out.println("Введите возраст:");
+            System.out.println(messenger.getMessage("enterAge"));
             try {
                 age = readAge();
                 break;
@@ -59,7 +60,7 @@ public class ConsoleUserInput extends UserInput {
         }
 
         while (true) {
-            System.out.println("Введите цвет (RED, BLACK, BLUE, ORANGE):");
+            System.out.println(messenger.getMessage("enterColor"));
             try {
                 color = readColor();
                 break;
@@ -69,7 +70,7 @@ public class ConsoleUserInput extends UserInput {
         }
 
         while (true) {
-            System.out.println("Введите тип (WATER, AIR, FIRE):");
+            System.out.println(messenger.getMessage("enterType"));
             try {
                 type = readDragonType();
                 break;
@@ -79,7 +80,7 @@ public class ConsoleUserInput extends UserInput {
         }
 
         while (true) {
-            System.out.println("Введите характер (CUNNING, CHAOTIC, FICKLE):");
+            System.out.println(messenger.getMessage("enterCharacter"));
             try {
                 character = readDragonCharacter();
                 break;
@@ -88,7 +89,7 @@ public class ConsoleUserInput extends UserInput {
             }
         }
 
-        System.out.println("Введите NULL, чтобы не вводить характеристики пещеры (Или любое другое значение, чтобы продолжить):");
+        System.out.println(messenger.getMessage("askForNull"));
         String result = new Scanner(System.in).nextLine();
 
         return new Dragon(name, coordinates, age, color, type, character, result.equals("NULL") ? null : enterCave());
@@ -99,7 +100,7 @@ public class ConsoleUserInput extends UserInput {
         DragonCave cave = new DragonCave();
 
         while (true) {
-            System.out.println("Введите глубину пещеры:");
+            System.out.println(messenger.getMessage("enterDepth"));
             try {
                 cave.setDepth(readDepth());
                 break;
@@ -109,7 +110,7 @@ public class ConsoleUserInput extends UserInput {
         }
 
         while (true) {
-            System.out.println("Введите количество богатства:");
+            System.out.println(messenger.getMessage("enterWealth"));
             try {
                 cave.setNumberOfTreasures(readNumberOfTreasures());
                 break;

@@ -18,7 +18,7 @@ public class RemoveAllByCave extends Command {
     public RemoveAllByCave(Stack<Dragon> dragonList, Messenger messenger) {
         super(dragonList, messenger);
 
-        this.userInput = new ConsoleUserInput();
+        this.userInput = new ConsoleUserInput(messenger);
     }
 
     @Override
@@ -34,6 +34,6 @@ public class RemoveAllByCave extends Command {
 
     @Override
     public String toString() {
-        return super.toString() + ": " + "Удалить элементы с полем cave равным заданному";
+        return super.toString() + ": " + getMessenger().getMessage("infoRemoveAllByCave");
     }
 }

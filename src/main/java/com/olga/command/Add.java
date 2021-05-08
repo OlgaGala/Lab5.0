@@ -17,7 +17,7 @@ public class Add extends Command {
     public Add(Stack<Dragon> dragonList, Messenger messenger) {
         super(dragonList, messenger);
 
-        consoleUserInput = new ConsoleUserInput();
+        consoleUserInput = new ConsoleUserInput(messenger);
 
     }
 
@@ -32,6 +32,6 @@ public class Add extends Command {
 
     @Override
     public String toString() {
-        return super.toString() + ": " + "Добавить новый элемент в коллекцию";
+        return super.toString() + ": " + getMessenger().getMessage("infoAdd");
     }
 }

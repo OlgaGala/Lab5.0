@@ -17,7 +17,7 @@ public class UpdateId extends Command {
     public UpdateId(Stack<Dragon> dragonList, Messenger messenger) {
         super(dragonList, messenger);
 
-        userInput = new ConsoleUserInput();
+        userInput = new ConsoleUserInput(messenger);
     }
 
     @Override
@@ -41,6 +41,6 @@ public class UpdateId extends Command {
 
     @Override
     public String toString() {
-        return super.toString() + ": " + "Обновить значение элемента с заданным ID";
+        return super.toString() + ": " + getMessenger().getMessage("infoUpdateId");
     }
 }

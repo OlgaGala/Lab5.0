@@ -30,6 +30,6 @@ public class FilterLessThanCharacter extends Command {
 
     @Override
     public String toString() {
-        return super.toString() + ": " + "Вывести элементы, значение поля character которых меньше заданного";
+        return super.toString() + ": " + getMessenger().getMessage("infoFilterLessThanCharacter");
     }
 }

@@ -19,6 +19,6 @@ public class Clear extends Command {
 
     @Override
     public String toString() {
-        return super.toString() + ": " + "Очистить коллекцию";
+        return super.toString() + ": " + getMessenger().getMessage("infoClear");
     }
 }
