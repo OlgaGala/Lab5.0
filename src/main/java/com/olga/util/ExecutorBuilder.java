@@ -2,6 +2,7 @@ package com.olga.util;
 
 import com.olga.command.manager.CommandManager;
 import com.olga.dragon.Dragon;
+import com.olga.i18n.Language;
 import com.olga.i18n.Messenger;
 import com.olga.print.api.Formatter;
 import com.olga.print.api.Printer;
@@ -44,7 +45,13 @@ public class ExecutorBuilder {
     }
 
     public Executor build() {
-        return new Executor(mDataSet, commandManager, formatter, printer, messenger);
+        return new Executor(
+                mDataSet,
+                commandManager,
+                formatter,
+                printer,
+                messenger
+        );
     }
 
 }

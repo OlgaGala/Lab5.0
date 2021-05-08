@@ -1,10 +1,12 @@
 package com.olga.print.implementation;
 
+import com.olga.i18n.Messenger;
 import com.olga.print.api.Formatter;
 
 import java.util.Collection;
 
 public class FormatterImpl implements Formatter {
+
     /**
      * Метод, который выводит коллекцию в более красивом виде
      */
@@ -15,15 +17,11 @@ public class FormatterImpl implements Formatter {
                 .replaceAll(", ", "\n");
     }
 
-    public String formatSingleElement(Object object) {
-        return "\n" + object.toString() + "\n";
-    }
-
-    public String formatBooleanOperation(boolean bool) {
+    public String formatBooleanOperation(boolean bool, Messenger messenger) {
         if(bool) {
-            return "Операция выполнилась успешно";
+            return messenger.getMessage("booleanOpTrue");
         } else {
-            return "Операция не выполнилась";
+            return messenger.getMessage("booleanOpFalse");
         }
     }
 }

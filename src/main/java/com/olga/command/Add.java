@@ -1,6 +1,7 @@
 package com.olga.command;
 
 import com.olga.dragon.Dragon;
+import com.olga.i18n.Messenger;
 import com.olga.io.ConsoleUserInput;
 import com.olga.io.UserInput;
 import lombok.Getter;
@@ -13,8 +14,8 @@ public class Add extends Command {
 
     private UserInput consoleUserInput;
 
-    public Add(Stack<Dragon> dragonList) {
-        super(dragonList);
+    public Add(Stack<Dragon> dragonList, Messenger messenger) {
+        super(dragonList, messenger);
 
         consoleUserInput = new ConsoleUserInput();
 

@@ -1,13 +1,14 @@
 package com.olga.command;
 
 import com.olga.dragon.Dragon;
+import com.olga.i18n.Messenger;
 
 import java.util.Stack;
 
 public class Exit extends Command {
 
-    public Exit(Stack<Dragon> dragonList) {
-        super(dragonList);
+    public Exit(Stack<Dragon> dragonList, Messenger messenger) {
+        super(dragonList, messenger);
     }
 
     @Override

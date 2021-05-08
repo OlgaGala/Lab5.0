@@ -1,6 +1,7 @@
 package com.olga.command;
 
 import com.olga.dragon.Dragon;
+import com.olga.i18n.Messenger;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,8 +16,8 @@ import java.util.Stack;
 @Getter @Setter
 public class Info extends Command {
 
-    public Info(Stack<Dragon> dragonList) {
-        super(dragonList);
+    public Info(Stack<Dragon> dragonList, Messenger messenger) {
+        super(dragonList, messenger);
     }
 
     @Override
@@ -39,9 +40,9 @@ public class Info extends Command {
         }
 
         return new Formatter()
-                .format("Type: %s\n" +
-                                "Size: %d\n" +
-                                "Creation Date: %s\n",
+                .format(getMessenger().getMessage("type") + ": %s\n" +
+                                getMessenger().getMessage("size") + ": %d\n" +
+                                getMessenger().getMessage("creationDate") +": %s\n",
                         elementType, getDragonList().toArray().length, fileCreationDate)
                 .toString();
     }

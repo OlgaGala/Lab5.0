@@ -1,14 +1,15 @@
 package com.olga.command;
 
 import com.olga.dragon.Dragon;
+import com.olga.i18n.Messenger;
 
 import java.util.Collections;
 import java.util.Stack;
 
 public class Shuffle extends Command {
 
-    public Shuffle(Stack<Dragon> dragonList) {
-        super(dragonList);
+    public Shuffle(Stack<Dragon> dragonList, Messenger messenger) {
+        super(dragonList, messenger);
     }
 
     @Override

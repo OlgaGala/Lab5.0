@@ -2,6 +2,7 @@ package com.olga.command;
 
 import com.olga.command.manager.CommandManager;
 import com.olga.dragon.Dragon;
+import com.olga.i18n.Messenger;
 import com.olga.io.FileUserInput;
 import com.olga.io.UserInput;
 import lombok.Getter;
@@ -17,8 +18,8 @@ public class ExecuteScript extends Command {
 
     private UserInput userInput;
 
-    public ExecuteScript(Stack<Dragon> dragonList) {
-        super(dragonList);
+    public ExecuteScript(Stack<Dragon> dragonList, Messenger messenger) {
+        super(dragonList, messenger);
     }
 
 

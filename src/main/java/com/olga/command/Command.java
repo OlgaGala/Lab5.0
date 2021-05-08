@@ -1,6 +1,7 @@
 package com.olga.command;
 
 import com.olga.dragon.Dragon;
+import com.olga.i18n.Messenger;
 import com.olga.print.api.Formatter;
 import com.olga.print.implementation.FormatterImpl;
 import lombok.*;
@@ -9,18 +10,19 @@ import java.util.Stack;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter(AccessLevel.PROTECTED)
+@Setter(AccessLevel.PROTECTED)
 public abstract class Command {
 
-    @Getter(AccessLevel.PROTECTED)
-    @Setter(AccessLevel.PROTECTED)
     private Stack<Dragon> dragonList;
 
-    @Getter(AccessLevel.PROTECTED)
-    @Setter(AccessLevel.PROTECTED)
     private Formatter formatter;
 
-    public Command(Stack<Dragon> dragonList) {
+    private Messenger messenger;
+
+    public Command(Stack<Dragon> dragonList, Messenger messenger) {
         this.dragonList = dragonList;
+        this.messenger = messenger;
         this.formatter = new FormatterImpl();
     }
 

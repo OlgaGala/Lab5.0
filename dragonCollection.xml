@@ -67,4 +67,21 @@
       <numberOfTreasures>1</numberOfTreasures>
     </cave>
   </dragon>
+  <dragon>
+    <id>5</id>
+    <name>Olga Galakhina</name>
+    <coordinates>
+      <x>1.0</x>
+      <y>0</y>
+    </coordinates>
+    <creationDate>06 May 2021</creationDate>
+    <age>123</age>
+    <color>RED</color>
+    <type>WATER</type>
+    <character>CUNNING</character>
+    <cave>
+      <depth>1</depth>
+      <numberOfTreasures>100</numberOfTreasures>
+    </cave>
+  </dragon>
 </DragonWrapper>

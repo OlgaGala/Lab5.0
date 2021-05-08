@@ -1,6 +1,7 @@
 package com.olga.command;
 
 import com.olga.dragon.Dragon;
+import com.olga.i18n.Messenger;
 import com.olga.io.ConsoleUserInput;
 import com.olga.io.UserInput;
 import lombok.Getter;
@@ -13,8 +14,8 @@ public class InsertAtIndex extends Command {
 
     private UserInput consoleUserInput;
 
-    public InsertAtIndex(Stack<Dragon> dragonList) {
-        super(dragonList);
+    public InsertAtIndex(Stack<Dragon> dragonList, Messenger messenger) {
+        super(dragonList, messenger);
 
         this.consoleUserInput = new ConsoleUserInput();
     }
@@ -24,7 +25,10 @@ public class InsertAtIndex extends Command {
 
         Dragon dragon = consoleUserInput.enterElement();
 
-        return getFormatter().formatSingleElement(getDragonList().set(Integer.parseInt(index), dragon));
+        return getFormatter().formatBooleanOperation(
+                getDragonList().set(Integer.parseInt(index), dragon) != null,
+                getMessenger()
+        );
     }
 
     @Override

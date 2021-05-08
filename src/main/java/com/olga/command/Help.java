@@ -1,6 +1,7 @@
 package com.olga.command;
 
 import com.olga.dragon.Dragon;
+import com.olga.i18n.Messenger;
 import org.reflections.Reflections;
 
 import java.lang.reflect.Constructor;
@@ -9,8 +10,8 @@ import java.util.Stack;
 
 public class Help extends Command {
 
-    public Help(Stack<Dragon> dragonList) {
-        super(dragonList);
+    public Help(Stack<Dragon> dragonList, Messenger messenger) {
+        super(dragonList, messenger);
     }
 
     @Override

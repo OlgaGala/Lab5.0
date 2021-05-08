@@ -2,6 +2,7 @@ package com.olga.command;
 
 import com.olga.dragon.Dragon;
 import com.olga.dragon.DragonCave;
+import com.olga.i18n.Messenger;
 import com.olga.io.ConsoleUserInput;
 import com.olga.io.UserInput;
 import lombok.Getter;
@@ -14,8 +15,8 @@ public class RemoveAllByCave extends Command {
 
     private UserInput userInput;
 
-    public RemoveAllByCave(Stack<Dragon> dragonList) {
-        super(dragonList);
+    public RemoveAllByCave(Stack<Dragon> dragonList, Messenger messenger) {
+        super(dragonList, messenger);
 
         this.userInput = new ConsoleUserInput();
     }
@@ -25,7 +26,10 @@ public class RemoveAllByCave extends Command {
 
         DragonCave dragonCave = userInput.enterCave();
 
-        return getFormatter().formatBooleanOperation(getDragonList().removeIf(d -> d.getCave().equals(dragonCave)));
+        return getFormatter().formatBooleanOperation(
+                getDragonList().removeIf(d -> d.getCave().equals(dragonCave)),
+                getMessenger()
+        );
     }
 
     @Override

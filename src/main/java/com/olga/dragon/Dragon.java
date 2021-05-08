@@ -1,14 +1,23 @@
 package com.olga.dragon;
 
+import com.olga.i18n.Messenger;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.Objects;
 
+@Getter @Setter
+@NoArgsConstructor
 public class Dragon implements Comparable<Dragon>, Serializable {
 
     private static Integer static_id = 1;
+
+    public static Messenger messenger;
 
     private Integer id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
@@ -43,88 +52,6 @@ public class Dragon implements Comparable<Dragon>, Serializable {
 
     }
 
-    public Dragon() {
-    }
-
-    public static Integer getStatic_id() {
-        return static_id;
-    }
-
-    public static void setStatic_id(Integer static_id) {
-        Dragon.static_id = static_id;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Coordinates getCoordinates() {
-        return coordinates;
-    }
-
-    public void setCoordinates(Coordinates coordinates) {
-        this.coordinates = coordinates;
-    }
-
-    public String getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(String creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public long getAge() {
-        return age;
-    }
-
-    public void setAge(long age) {
-        this.age = age;
-    }
-
-    public Color getColor() {
-        return color;
-    }
-
-    public void setColor(Color color) {
-        this.color = color;
-    }
-
-    public DragonType getType() {
-        return type;
-    }
-
-    public void setType(DragonType type) {
-        this.type = type;
-    }
-
-    public DragonCharacter getCharacter() {
-        return character;
-    }
-
-    public void setCharacter(DragonCharacter character) {
-        this.character = character;
-    }
-
-    public DragonCave getCave() {
-        return cave;
-    }
-
-    public void setCave(DragonCave cave) {
-        this.cave = cave;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -149,16 +76,16 @@ public class Dragon implements Comparable<Dragon>, Serializable {
 
     @Override
     public String toString() {
-        return "Dragon{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", coordinates=" + coordinates +
-                ", creationDate=" + creationDate +
-                ", age=" + age +
-                ", color=" + color +
-                ", type=" + type +
-                ", character=" + character +
-                ", cave=" + cave +
+        return messenger.getMessage("dragon") + "{" +
+                messenger.getMessage("id") + " = " + id +
+                messenger.getMessage("name") + " = '" + name + '\'' +
+                messenger.getMessage("coordinates") + " = " + coordinates +
+                messenger.getMessage("creationDate") + " = " + creationDate +
+                messenger.getMessage("age") + " = " + age +
+                messenger.getMessage("color") + " = " + color +
+                messenger.getMessage("type") + " = " + type +
+                messenger.getMessage("character") + " = " + character +
+                messenger.getMessage("cave") + " = " + cave +
                 "}\n";
     }
 

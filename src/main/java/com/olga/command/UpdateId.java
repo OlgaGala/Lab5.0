@@ -1,6 +1,7 @@
 package com.olga.command;
 
 import com.olga.dragon.Dragon;
+import com.olga.i18n.Messenger;
 import com.olga.io.ConsoleUserInput;
 import com.olga.io.UserInput;
 import lombok.Getter;
@@ -13,8 +14,8 @@ public class UpdateId extends Command {
 
     private UserInput userInput;
 
-    public UpdateId(Stack<Dragon> dragonList) {
-        super(dragonList);
+    public UpdateId(Stack<Dragon> dragonList, Messenger messenger) {
+        super(dragonList, messenger);
 
         userInput = new ConsoleUserInput();
     }
@@ -22,17 +23,20 @@ public class UpdateId extends Command {
     @Override
     public String execute(String id) {
 
-        getDragonList().forEach(d -> {
+        boolean result = false;
+
+        for (Dragon d: getDragonList()) {
             if(d.getId().equals(Integer.parseInt(id))) {
                 try {
                     d = userInput.enterElement();
+                    result = true;
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
-        });
+        }
 
-        return null;
+        return getFormatter().formatBooleanOperation(result, getMessenger());
     }
 
     @Override

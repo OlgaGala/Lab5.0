@@ -3,6 +3,7 @@ package com.olga.util;
 import com.olga.command.Exit;
 import com.olga.command.manager.CommandManager;
 import com.olga.dragon.Dragon;
+import com.olga.i18n.Language;
 import com.olga.i18n.Messenger;
 import com.olga.print.api.Formatter;
 import com.olga.print.api.Printer;
@@ -26,18 +27,20 @@ public class Executor {
     private Messenger messenger;
 
     private void init() {
+
         commandManager.setMessenger(messenger);
         commandManager.setFormatter(formatter);
         commandManager.setPrinter(printer);
         commandManager.setMDataSet(mDataSet);
+
+        Dragon.messenger = messenger;
     }
 
     public void start() {
 
         init();
 
-        System.out.println("Вас приветствует терминал управления списком пользователей.\n" +
-                "Введите одну из команд для продолжения (help - список доступных команд)");
+        System.out.println(messenger.getMessage("greeting"));
 
         Scanner sc = new Scanner(System.in);
         String response;
@@ -55,6 +58,6 @@ public class Executor {
 
         // После того, как пользователь ввёл exit,
         // необходимо вызвать соответствующий метод Service и закончить выполнение программы
-        new Exit(null).execute(null);
+        new Exit(null, null).execute(null);
     }
 }

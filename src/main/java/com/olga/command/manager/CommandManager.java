@@ -12,7 +12,6 @@ import lombok.Setter;
 import org.reflections.Reflections;
 
 import java.lang.reflect.Constructor;
-import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 
@@ -53,8 +52,8 @@ public class CommandManager {
         classes.forEach(c -> {
             if(c.getSimpleName().toLowerCase().equals(commandName)) {
                 try {
-                    Constructor<? extends Command> constructor = c.getConstructor(Stack.class);
-                    command[0] = constructor.newInstance(mDataSet);
+                    Constructor<? extends Command> constructor = c.getConstructor(Stack.class, Messenger.class);
+                    command[0] = constructor.newInstance(mDataSet, messenger);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
