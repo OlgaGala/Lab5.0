@@ -17,6 +17,7 @@ import java.util.Stack;
 public class ExecuteScript extends Command {
 
     private UserInput userInput;
+    private CommandManager manager;
 
     public ExecuteScript(Stack<Dragon> dragonList, Messenger messenger) {
         super(dragonList, messenger);
@@ -52,10 +53,10 @@ public class ExecuteScript extends Command {
                 response = scanner.nextLine();
 
                 // Обязательно нужно проверить условие зацикливания, чтобы скрипт не вызвал сам себя
-                if(response.equals("execute_script " + fileName)) {
+                if(response.equals("executescript " + fileName)) {
                     result.append(getMessenger().getMessage("recursiveCallScript")).append("\n");
                 } else {
-                    result.append(new CommandManager().executeCommand(response)).append("\n");
+                    result.append(manager.executeCommand(response)).append("\n");
                 }
             }
 
@@ -64,8 +65,12 @@ public class ExecuteScript extends Command {
         } catch (IOException e) {
             throw new Exception(e.getMessage());
         } catch (Exception e) {
-            throw new Exception("Скрипт некорректный");
+            throw new Exception(getMessenger().getMessage("scriptNotValid"));
         }
+    }
+
+    public void setCommandManager(CommandManager manager) {
+        this.manager = manager;
     }
 
 

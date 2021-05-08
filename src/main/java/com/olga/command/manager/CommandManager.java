@@ -1,6 +1,7 @@
 package com.olga.command.manager;
 
 import com.olga.command.Command;
+import com.olga.command.ExecuteScript;
 import com.olga.dragon.Dragon;
 import com.olga.i18n.Messenger;
 import com.olga.print.api.Formatter;
@@ -50,10 +51,17 @@ public class CommandManager {
 
         final Command[] command = new Command[1];
         classes.forEach(c -> {
-            if(c.getSimpleName().toLowerCase().equals(commandName)) {
+            if(c.getSimpleName().equalsIgnoreCase(commandName)) {
                 try {
-                    Constructor<? extends Command> constructor = c.getConstructor(Stack.class, Messenger.class);
-                    command[0] = constructor.newInstance(mDataSet, messenger);
+                    if(commandName.equalsIgnoreCase("executescript")) {
+                        Constructor<ExecuteScript> constructor = ExecuteScript.class.getConstructor(Stack.class, Messenger.class);
+                        ExecuteScript executeScript = constructor.newInstance(mDataSet, messenger);
+                        executeScript.setCommandManager(this);
+                        command[0] = executeScript;
+                    } else {
+                        Constructor<? extends Command> constructor = c.getConstructor(Stack.class, Messenger.class);
+                        command[0] = constructor.newInstance(mDataSet, messenger);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

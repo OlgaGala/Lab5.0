@@ -12,8 +12,6 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.util.Stack;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter(AccessLevel.PROTECTED)
 @Setter(AccessLevel.PROTECTED)
 public abstract class Command {
@@ -33,7 +31,6 @@ public abstract class Command {
 
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         validator = factory.getValidator();
-
     }
 
     public abstract String execute(String args) throws Exception;

@@ -132,7 +132,7 @@
     <character>CUNNING</character>
     <cave>
       <depth>0</depth>
-      <numberOfTreasures/>
+      <numberOfTreasures>0</numberOfTreasures>
     </cave>
   </dragon>
 </DragonWrapper>
