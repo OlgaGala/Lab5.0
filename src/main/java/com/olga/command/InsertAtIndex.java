@@ -1,5 +1,6 @@
 package com.olga.command;
 
+import com.olga.command.annotation.AttachedObj;
 import com.olga.dragon.Dragon;
 import com.olga.i18n.Messenger;
 import com.olga.io.ConsoleUserInput;
@@ -12,6 +13,7 @@ import java.util.Set;
 import java.util.Stack;
 
 @Getter @Setter
+@AttachedObj
 public class InsertAtIndex extends Command {
 
     private UserInput consoleUserInput;
