@@ -7,9 +7,13 @@ public interface Messenger {
     String getMessage(String msg);
 
     static Locale initLang() {
-//        System.out.println("Пожалуйста, выберите язык (ru_RU, uk_UA). Please, choose your language");
+
+        // Возможность выбора языка была отключена. Чтобы ее включить, необходимо заполнить файл re_RU.properties
+        // и раскомментить код ниже, а также закомментить строку Language
 
         Language language = Language.ru_RU;
+
+//        System.out.println("Пожалуйста, выберите язык (ru_RU, uk_UA). Please, choose your language");
 //        try {
 //            language = Language.valueOf(new Scanner(System.in).nextLine());
 //        } catch (Exception e) {

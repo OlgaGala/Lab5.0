@@ -2,9 +2,9 @@ package com.olga.command;
 
 import com.olga.command.manager.CommandManager;
 import com.olga.dragon.Dragon;
-import com.olga.i18n.Messenger;
 import com.olga.io.FileUserInput;
 import com.olga.io.UserInput;
+import com.olga.message.Message;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,14 +19,14 @@ public class ExecuteScript extends Command {
     private UserInput userInput;
     private CommandManager manager;
 
-    public ExecuteScript(Stack<Dragon> dragonList, Messenger messenger) {
-        super(dragonList, messenger);
+    public ExecuteScript(Stack<Dragon> dragonList) {
+        super(dragonList);
     }
 
 
     @Override
-    public String execute(String fileName) throws Exception {
-        return execute_script(fileName);
+    public String execute(Message message) throws Exception {
+        return execute_script(getArg(message.getCommand()));
     }
 
     /**
@@ -38,7 +38,7 @@ public class ExecuteScript extends Command {
      */
     public String execute_script(String fileName) throws Exception {
 
-        this.userInput = new FileUserInput(new Scanner(new File(fileName)), getMessenger());
+        this.userInput = new FileUserInput(new Scanner(new File(fileName)));
 
         if(!new File(fileName).exists()) throw new IOException(getMessenger().getMessage("fileNotFound"));
 
@@ -47,16 +47,15 @@ public class ExecuteScript extends Command {
             // Перед выполнением скрипта меняем источник ввода объектов на файловый
             StringBuilder result = new StringBuilder();
 
-            String response;
             while (scanner.hasNextLine()) {
 
-                response = scanner.nextLine();
+                String command = scanner.nextLine();
 
                 // Обязательно нужно проверить условие зацикливания, чтобы скрипт не вызвал сам себя
-                if(response.equals("executescript " + fileName)) {
+                if(command.equals("executescript " + fileName)) {
                     result.append(getMessenger().getMessage("recursiveCallScript")).append("\n");
                 } else {
-                    result.append(manager.executeCommand(response)).append("\n");
+                    result.append(manager.executeCommand(new Message(command))).append("\n");
                 }
             }
 

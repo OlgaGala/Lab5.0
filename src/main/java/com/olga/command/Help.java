@@ -2,6 +2,7 @@ package com.olga.command;
 
 import com.olga.dragon.Dragon;
 import com.olga.i18n.Messenger;
+import com.olga.message.Message;
 import org.reflections.Reflections;
 
 import java.lang.reflect.Constructor;
@@ -10,12 +11,12 @@ import java.util.Stack;
 
 public class Help extends Command {
 
-    public Help(Stack<Dragon> dragonList, Messenger messenger) {
-        super(dragonList, messenger);
+    public Help(Stack<Dragon> dragonList) {
+        super(dragonList);
     }
 
     @Override
-    public String execute(String ignore) {
+    public String execute(Message ignore) {
 
         Reflections reflections = new Reflections("com.olga.command");
         Set<Class<? extends Command>> classes = reflections.getSubTypesOf(Command.class);
@@ -25,9 +26,9 @@ public class Help extends Command {
         classes.forEach(c -> {
 
             try {
-                Constructor<? extends Command> constructor = c.getConstructor(Stack.class, Messenger.class);
-                Command command = constructor.newInstance(getDragonList(), getMessenger());
-                result.append(command.toString()).append("\n");
+                Constructor<? extends Command> constructor = c.getConstructor(Stack.class);
+                Command command = constructor.newInstance(getDragonList());
+                result.append(command).append("\n");
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -1,6 +1,8 @@
 package com.olga.dragon;
 
 import com.olga.i18n.Messenger;
+import com.olga.i18n.MessengerFactory;
+import com.olga.i18n.MessengerImpl;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,7 +21,7 @@ public class Dragon implements Comparable<Dragon>, Serializable {
 
     private static Integer static_id = 1;
 
-    public static Messenger messenger;
+    public static Messenger messenger = MessengerFactory.getMessenger();
 
     @NotNull(message = "id can't be null")
     private Integer id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически

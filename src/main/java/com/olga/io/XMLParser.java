@@ -80,8 +80,8 @@ public class XMLParser {
      */
     private static void settleIds(Stack<Dragon> dragons) {
         int id = 0;
-        for (Dragon vehicles : dragons) {
-            vehicles.setId(++id);
+        for (Dragon d : dragons) {
+            d.setId(++id);
         }
     }
 }

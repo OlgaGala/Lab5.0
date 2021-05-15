@@ -5,6 +5,7 @@ import com.olga.dragon.Dragon;
 import com.olga.i18n.Messenger;
 import com.olga.io.ConsoleUserInput;
 import com.olga.io.UserInput;
+import com.olga.message.Message;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,19 +19,21 @@ public class UpdateId extends Command {
 
     private UserInput userInput;
 
-    public UpdateId(Stack<Dragon> dragonList, Messenger messenger) {
-        super(dragonList, messenger);
+    public UpdateId(Stack<Dragon> dragonList) {
+        super(dragonList);
 
-        userInput = new ConsoleUserInput(messenger);
+        userInput = new ConsoleUserInput();
     }
 
     @Override
-    public String execute(String id) {
+    public String execute(Message message) {
+
+        String id = getArg(message.getCommand());
 
         for (Dragon d: getDragonList()) {
             if(d.getId().equals(Integer.parseInt(id))) {
                 try {
-                    Dragon dragon = userInput.enterElement();
+                    Dragon dragon = message.getDragon();
                     Set<ConstraintViolation<Dragon>> violations = getValidator().validate(dragon);
 
                     if(violations.isEmpty()) {

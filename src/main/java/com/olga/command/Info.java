@@ -2,6 +2,7 @@ package com.olga.command;
 
 import com.olga.dragon.Dragon;
 import com.olga.i18n.Messenger;
+import com.olga.message.Message;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,12 +17,12 @@ import java.util.Stack;
 @Getter @Setter
 public class Info extends Command {
 
-    public Info(Stack<Dragon> dragonList, Messenger messenger) {
-        super(dragonList, messenger);
+    public Info(Stack<Dragon> dragonList) {
+        super(dragonList);
     }
 
     @Override
-    public String execute(String ignore) {
+    public String execute(Message ignore) {
         String fileCreationDate = null;
         String elementType = null;
 

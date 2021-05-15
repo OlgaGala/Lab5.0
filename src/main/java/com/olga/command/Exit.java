@@ -2,17 +2,23 @@ package com.olga.command;
 
 import com.olga.dragon.Dragon;
 import com.olga.i18n.Messenger;
+import com.olga.message.Message;
 
+import javax.security.sasl.SaslClient;
 import java.util.Stack;
 
 public class Exit extends Command {
 
-    public Exit(Stack<Dragon> dragonList, Messenger messenger) {
-        super(dragonList, messenger);
+    public Exit(Stack<Dragon> dragonList) {
+        super(dragonList);
     }
 
     @Override
-    public String execute(String ignore) {
+    public String execute(Message ignore) {
+
+        // Сохраняем коллекция перед выходом
+        new Save(getDragonList()).execute(null);
+
         System.exit(0);
         return null;
     }

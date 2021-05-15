@@ -3,6 +3,7 @@ package com.olga.command;
 import com.olga.dragon.Dragon;
 import com.olga.dragon.DragonCharacter;
 import com.olga.i18n.Messenger;
+import com.olga.message.Message;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,12 +14,14 @@ import java.util.stream.Collectors;
 @Getter @Setter
 public class FilterLessThanCharacter extends Command {
 
-    public FilterLessThanCharacter(Stack<Dragon> dragonList, Messenger messenger) {
-        super(dragonList, messenger);
+    public FilterLessThanCharacter(Stack<Dragon> dragonList) {
+        super(dragonList);
     }
 
     @Override
-    public String execute(String character) {
+    public String execute(Message message) {
+
+        String character = getArg(message.getCommand());
 
         List<Dragon> resultList = getDragonList()
                 .stream()

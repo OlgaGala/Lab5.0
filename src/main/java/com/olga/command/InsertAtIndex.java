@@ -5,6 +5,7 @@ import com.olga.dragon.Dragon;
 import com.olga.i18n.Messenger;
 import com.olga.io.ConsoleUserInput;
 import com.olga.io.UserInput;
+import com.olga.message.Message;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,16 +19,18 @@ public class InsertAtIndex extends Command {
 
     private UserInput consoleUserInput;
 
-    public InsertAtIndex(Stack<Dragon> dragonList, Messenger messenger) {
-        super(dragonList, messenger);
+    public InsertAtIndex(Stack<Dragon> dragonList) {
+        super(dragonList);
 
-        this.consoleUserInput = new ConsoleUserInput(messenger);
+        this.consoleUserInput = new ConsoleUserInput();
     }
 
     @Override
-    public String execute(String index) throws Exception {
+    public String execute(Message message) throws Exception {
 
-        Dragon dragon = consoleUserInput.enterElement();
+        String index = getArg(message.getCommand());
+
+        Dragon dragon = message.getDragon();
 
         Set<ConstraintViolation<Dragon>> violations = getValidator().validate(dragon);
 

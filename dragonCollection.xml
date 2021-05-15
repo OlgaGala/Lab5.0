@@ -1,23 +1,6 @@
 <DragonWrapper>
   <dragon>
     <id>1</id>
-    <name>Olga</name>
-    <coordinates>
-      <x>12.0</x>
-      <y>1</y>
-    </coordinates>
-    <creationDate>07 April 2021</creationDate>
-    <age>12</age>
-    <color/>
-    <type>WATER</type>
-    <character>CUNNING</character>
-    <cave>
-      <depth>123</depth>
-      <numberOfTreasures>123</numberOfTreasures>
-    </cave>
-  </dragon>
-  <dragon>
-    <id>2</id>
     <name>Olga 2</name>
     <coordinates>
       <x>1.0</x>
@@ -34,24 +17,7 @@
     </cave>
   </dragon>
   <dragon>
-    <id>3</id>
-    <name>123</name>
-    <coordinates>
-      <x>123.0</x>
-      <y>123</y>
-    </coordinates>
-    <creationDate>07 April 2021</creationDate>
-    <age>123</age>
-    <color/>
-    <type>WATER</type>
-    <character>CUNNING</character>
-    <cave>
-      <depth>0</depth>
-      <numberOfTreasures>0</numberOfTreasures>
-    </cave>
-  </dragon>
-  <dragon>
-    <id>4</id>
+    <id>2</id>
     <name>Example</name>
     <coordinates>
       <x>12.0</x>
@@ -68,7 +34,7 @@
     </cave>
   </dragon>
   <dragon>
-    <id>5</id>
+    <id>3</id>
     <name>Olga Galakhina</name>
     <coordinates>
       <x>1.0</x>
@@ -85,7 +51,7 @@
     </cave>
   </dragon>
   <dragon>
-    <id>6</id>
+    <id>4</id>
     <name>Alek</name>
     <coordinates>
       <x>1.0</x>
@@ -102,7 +68,7 @@
     </cave>
   </dragon>
   <dragon>
-    <id>7</id>
+    <id>5</id>
     <name>asd</name>
     <coordinates>
       <x>1.0</x>
@@ -119,7 +85,7 @@
     </cave>
   </dragon>
   <dragon>
-    <id>8</id>
+    <id>6</id>
     <name>Al</name>
     <coordinates>
       <x>1.0</x>

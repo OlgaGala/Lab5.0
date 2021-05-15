@@ -11,8 +11,8 @@ import java.util.Scanner;
  */
 public class FileUserInput extends UserInput {
 
-    public FileUserInput(Scanner in, Messenger messenger) {
-        super(in, messenger);
+    public FileUserInput(Scanner in) {
+        super(in);
     }
 
     /**

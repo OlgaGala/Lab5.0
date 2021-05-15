@@ -10,8 +10,8 @@ import java.util.Scanner;
  */
 public class ConsoleUserInput extends UserInput {
 
-    public ConsoleUserInput(Messenger messenger) {
-        super(new Scanner(System.in), messenger);
+    public ConsoleUserInput() {
+        super(new Scanner(System.in));
     }
 
     /**

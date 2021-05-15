@@ -2,6 +2,7 @@ package com.olga.command;
 
 import com.olga.dragon.Dragon;
 import com.olga.i18n.Messenger;
+import com.olga.message.Message;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,12 +12,15 @@ import java.util.Stack;
 @Getter @Setter
 public class RemoveAtIndex extends Command {
 
-    public RemoveAtIndex(Stack<Dragon> dragonList, Messenger messenger) {
-        super(dragonList, messenger);
+    public RemoveAtIndex(Stack<Dragon> dragonList) {
+        super(dragonList);
     }
 
     @Override
-    public String execute(String index) {
+    public String execute(Message message) {
+
+        String index = getArg(message.getCommand());
+
         return getFormatter().formatBooleanOperation(
                 getDragonList().remove(Integer.parseInt(index)) != null,
                 getMessenger()

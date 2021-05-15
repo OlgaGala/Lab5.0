@@ -2,7 +2,10 @@ package com.olga.io;
 
 import com.olga.dragon.*;
 import com.olga.i18n.Messenger;
+import com.olga.i18n.MessengerFactory;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Scanner;
 
@@ -13,8 +16,9 @@ import java.util.Scanner;
 @AllArgsConstructor
 public abstract class UserInput {
 
+    protected final static Messenger messenger = MessengerFactory.getMessenger();
+
     private final Scanner in;
-    public final Messenger messenger;
 
     /**
      * Логика ввода элемента. Метод нужно переопределить в суб-классах

@@ -1,9 +1,7 @@
-package com.olga.util;
+package com.olga.server;
 
 import com.olga.command.manager.CommandManager;
 import com.olga.dragon.Dragon;
-import com.olga.i18n.Language;
-import com.olga.i18n.Messenger;
 import com.olga.print.api.Formatter;
 import com.olga.print.api.Printer;
 import lombok.NoArgsConstructor;
@@ -11,47 +9,39 @@ import lombok.NoArgsConstructor;
 import java.util.Stack;
 
 @NoArgsConstructor
-public class ExecutorBuilder {
+public class ServerExecutorBuilder {
 
     private Stack<Dragon> mDataSet;
     private CommandManager commandManager;
     private Formatter formatter;
     private Printer printer;
-    private Messenger messenger;
 
-    public ExecutorBuilder setDataSet(Stack<Dragon> mDataSet) {
+    public ServerExecutorBuilder setDataSet(Stack<Dragon> mDataSet) {
         this.mDataSet = mDataSet;
         return this;
     }
 
-    public ExecutorBuilder setCommandManager(CommandManager commandManager) {
+    public ServerExecutorBuilder setCommandManager(CommandManager commandManager) {
         this.commandManager = commandManager;
         return this;
     }
 
-    public ExecutorBuilder setFormatter(Formatter formatter) {
+    public ServerExecutorBuilder setFormatter(Formatter formatter) {
         this.formatter = formatter;
         return this;
     }
 
-    public ExecutorBuilder setPrinter(Printer printer) {
+    public ServerExecutorBuilder setPrinter(Printer printer) {
         this.printer = printer;
         return this;
     }
 
-    public ExecutorBuilder setMessenger(Messenger messenger) {
-        this.messenger = messenger;
-        return this;
-    }
-
-    public Executor build() {
-        return new Executor(
+    public ServerHelper build() {
+        return new ServerHelper(
                 mDataSet,
                 commandManager,
                 formatter,
-                printer,
-                messenger
+                printer
         );
     }
-
 }

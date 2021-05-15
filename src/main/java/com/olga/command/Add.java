@@ -5,6 +5,7 @@ import com.olga.dragon.Dragon;
 import com.olga.i18n.Messenger;
 import com.olga.io.ConsoleUserInput;
 import com.olga.io.UserInput;
+import com.olga.message.Message;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,22 +19,23 @@ public class Add extends Command {
 
     private UserInput consoleUserInput;
 
-    public Add(Stack<Dragon> dragonList, Messenger messenger) {
-        super(dragonList, messenger);
+    public Add(Stack<Dragon> dragonList) {
+        super(dragonList);
 
-        consoleUserInput = new ConsoleUserInput(messenger);
+        consoleUserInput = new ConsoleUserInput();
 
     }
 
     @Override
-    public String execute(String ignore) throws Exception {
+    public String execute(Message message) throws Exception {
 
-        Dragon dragon = consoleUserInput.enterElement();
+        Dragon dragon = message.getDragon();
 
         Set<ConstraintViolation<Dragon>> violations = getValidator().validate(dragon);
 
         if(violations.isEmpty()) {
             getDragonList().add(dragon);
+            settleIds();
             return getFormatter().formatBooleanOperation(true, getMessenger());
         }
 
