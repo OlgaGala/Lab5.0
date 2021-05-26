@@ -2,6 +2,7 @@ package com.lab7.dao;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Map;
 import java.util.Properties;
 
 public class PropertyReader {
@@ -12,8 +13,10 @@ public class PropertyReader {
 
 		String result = "";
 
-		try(InputStream inputStream = PropertyReader.class.getClassLoader().getResourceAsStream(propertyFileName);) {
+		try(InputStream inputStream = PropertyReader.class.getClassLoader().getResourceAsStream(propertyFileName)) {
 			Properties prop = new Properties();
+
+
 
 			if (inputStream != null) {
 				prop.load(inputStream);

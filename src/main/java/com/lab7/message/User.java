@@ -10,6 +10,7 @@ import java.util.Locale;
 @Data
 @NoArgsConstructor
 public class User implements Serializable {
+
     private String name;
     private String password;
     private String address;

@@ -43,6 +43,7 @@ public class DragonDao implements GenericDao<Dragon, Integer> {
             if(rowsInserted > 0) {
                 return dragon;
             }
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -59,7 +60,6 @@ public class DragonDao implements GenericDao<Dragon, Integer> {
     public Stack<Dragon> findAll() {
 
         Stack<Dragon> dragons = new Stack<>();
-
         try {
             PreparedStatement statement = jdbc.getConnection().prepareStatement("SELECT * FROM DRAGON");
             ResultSet resultSet = statement.executeQuery();
@@ -94,6 +94,7 @@ public class DragonDao implements GenericDao<Dragon, Integer> {
     public boolean update(Dragon dragon) {
 
         try {
+
             PreparedStatement statement = jdbc.getConnection().prepareStatement(
                     "UPDATE dragon SET " +
                             "NAME=?, " +

@@ -74,7 +74,7 @@ public class UserDao implements GenericDao<User, String> {
     public User findById(String name) {
         try {
             PreparedStatement statement = jdbc.getConnection().prepareStatement(
-                    "SELECT * FROM DRAGON WHERE name=?"
+                    "SELECT * FROM user_lab WHERE name=?"
             );
 
             statement.setString(1, name);
