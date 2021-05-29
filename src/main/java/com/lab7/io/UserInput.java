@@ -1,8 +1,9 @@
 package com.lab7.io;
 
-import com.lab7.dragon.*;
+import com.lab7.entity.*;
 import com.lab7.i18n.Messenger;
 import com.lab7.i18n.MessengerFactory;
+import com.lab7.entity.User;
 import lombok.AllArgsConstructor;
 
 import java.util.Scanner;
@@ -23,7 +24,7 @@ public abstract class UserInput {
      * @return - Введенный элемент
      * @throws Exception - исключение, возникающее в случае некорректного ввода
      */
-    public abstract Dragon enterElement() throws Exception;
+    public abstract Dragon enterElement(User user) throws Exception;
 
     /**
      * Ввод составного типа DragonCave. Метод нужно переопределить разным образом в зависимости от источника ввода (Файл, консоль)

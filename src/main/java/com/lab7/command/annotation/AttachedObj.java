@@ -1,6 +1,6 @@
 package com.lab7.command.annotation;
 
-import com.lab7.dragon.Dragon;
+import com.lab7.entity.Dragon;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

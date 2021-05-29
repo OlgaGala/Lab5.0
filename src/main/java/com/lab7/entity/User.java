@@ -1,4 +1,4 @@
-package com.lab7.message;
+package com.lab7.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,6 +1,6 @@
 package com.lab7.server;
 
-import com.lab7.dragon.Dragon;
+import com.lab7.entity.Dragon;
 import com.lab7.i18n.Messenger;
 import com.lab7.i18n.MessengerFactory;
 import com.lab7.print.api.Formatter;

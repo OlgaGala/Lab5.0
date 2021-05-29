@@ -1,7 +1,7 @@
 package com.lab7.command.manager;
 
 import com.lab7.command.ExecuteScript;
-import com.lab7.dragon.Dragon;
+import com.lab7.entity.Dragon;
 import com.lab7.i18n.Messenger;
 import com.lab7.i18n.MessengerFactory;
 import com.lab7.message.Message;
@@ -45,7 +45,7 @@ public class CommandManager {
 
     public Message executeCommand(Message message) throws Exception {
 
-        Reflections reflections = new Reflections("com.olga.command");
+        Reflections reflections = new Reflections("com.lab7");
         Set<Class<? extends Command>> classes = reflections.getSubTypesOf(Command.class);
 
         logger.info("Execute command: " + message.getCommand());

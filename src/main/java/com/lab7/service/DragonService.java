@@ -1,7 +1,8 @@
 package com.lab7.service;
 
 import com.lab7.dao.DragonDao;
-import com.lab7.dragon.Dragon;
+import com.lab7.entity.Dragon;
+import com.lab7.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,48 +12,56 @@ import java.util.Stack;
 
 @AllArgsConstructor
 @Getter @Setter
-public class DragonService implements GenericService<Dragon, Integer> {
+public class DragonService {
 
     private DragonDao dao;
 
-    @Override
-    public Dragon save(Dragon dragon) {
-        return dao.save(dragon);
+    public Dragon save(Dragon dragon, User user) {
+
+        if(user.getName().equals(dragon.getUser_name())) {
+            return dao.save(dragon);
+        }
+
+        return null;
     }
 
-    @Override
-    public List<Dragon> saveAll(List<Dragon> entities) {
-        return dao.saveAll(entities);
+    public void saveAll(List<Dragon> entities) {
+        dao.saveAll(entities);
     }
 
-    @Override
     public Stack<Dragon> findAll() {
         return dao.findAll();
     }
 
-    @Override
     public Dragon findById(Integer id) {
         return dao.findById(id);
     }
 
-    @Override
-    public boolean update(Dragon dragon) {
-        return dao.update(dragon);
+    public boolean update(Dragon dragon, User user) {
+        if(user.getName().equals(dragon.getUser_name())) {
+            return dao.update(dragon);
+        }
+        return false;
     }
 
-    @Override
-    public boolean delete(Dragon dragon) {
-        return dao.delete(dragon);
+    public boolean delete(Dragon dragon, User user) {
+        if(user.getName().equals(dragon.getUser_name())) {
+            return dao.delete(dragon);
+        }
+        return false;
     }
 
-    @Override
-    public boolean deleteById(Integer id) {
-        return dao.deleteById(id);
+    public boolean deleteById(Integer id, User user) {
+        Dragon dragon = findById(id);
+
+        if(user.getName().equals(dragon.getUser_name())) {
+            return dao.deleteById(id);
+        }
+        return false;
     }
 
-    @Override
-    public boolean deleteAll() {
-        return dao.deleteAll();
+    public void deleteAll() {
+        dao.deleteAll();
     }
 
 }

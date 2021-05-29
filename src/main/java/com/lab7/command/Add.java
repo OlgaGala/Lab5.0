@@ -1,6 +1,6 @@
 package com.lab7.command;
 
-import com.lab7.dragon.Dragon;
+import com.lab7.entity.Dragon;
 import com.lab7.command.annotation.AttachedObj;
 import com.lab7.io.ConsoleUserInput;
 import com.lab7.io.UserInput;
@@ -35,7 +35,7 @@ public class Add extends Command {
 
         if(violations.isEmpty()) {
 
-            if(getDragonService().save(dragon) != null) {
+            if(getDragonService().save(dragon, message.getUser()) != null) {
                 getDragonList().add(dragon);
                 settleIds();
                 return getFormatter().formatBooleanOperation(true);

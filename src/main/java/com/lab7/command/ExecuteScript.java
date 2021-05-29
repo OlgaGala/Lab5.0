@@ -1,6 +1,6 @@
 package com.lab7.command;
 
-import com.lab7.dragon.Dragon;
+import com.lab7.entity.Dragon;
 import com.lab7.command.manager.CommandManager;
 import com.lab7.io.FileUserInput;
 import com.lab7.io.UserInput;

@@ -1,6 +1,6 @@
 package com.lab7.command;
 
-import com.lab7.dragon.Dragon;
+import com.lab7.entity.Dragon;
 import com.lab7.message.Message;
 import com.lab7.service.DragonService;
 import lombok.Getter;
@@ -24,7 +24,7 @@ public class RemoveById extends Command {
                 .findFirst()
                 .orElse(null);
 
-        if(dragon != null && getDragonService().delete(dragon)) {
+        if(dragon != null && getDragonService().delete(dragon, message.getUser())) {
             return getFormatter().formatBooleanOperation(true);
         }
 

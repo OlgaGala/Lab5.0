@@ -3,9 +3,9 @@ package com.lab7.client;
 import com.lab7.command.Command;
 import com.lab7.command.annotation.AttachedObj;
 import com.lab7.command.annotation.AttachedObjFactory;
-import com.lab7.dragon.Dragon;
+import com.lab7.entity.Dragon;
 import com.lab7.message.Message;
-import com.lab7.message.User;
+import com.lab7.entity.User;
 import com.lab7.print.api.Printer;
 import com.lab7.print.implementation.PrinterImpl;
 import lombok.AllArgsConstructor;
@@ -37,7 +37,7 @@ public class ClientExecutor {
                     String[] array = response.split(" ");
                     String commandName = array[0];
 
-                    Message message = client.prepareRequest(response, validateAnnotation(Command.validateCommand(commandName)));
+                    Message message = client.prepareRequest(response, validateAnnotation(Command.validateCommand(commandName), user));
                     message.setUser(user);
                     Message result = client.sendRequest(message);
 
@@ -52,12 +52,12 @@ public class ClientExecutor {
         client.stop("Программа завершилась успешно");
     }
 
-    private Dragon validateAnnotation(Class<? extends Command> c) throws Exception {
+    private Dragon validateAnnotation(Class<? extends Command> c, User user) throws Exception {
 
         if(c.isAnnotationPresent(AttachedObj.class)) {
             AttachedObj attachedObj = c.getAnnotation(AttachedObj.class);
 
-            return AttachedObjFactory.newInstance(attachedObj.type());
+            return AttachedObjFactory.newInstance(attachedObj.type(), user);
         }
 
         return null;

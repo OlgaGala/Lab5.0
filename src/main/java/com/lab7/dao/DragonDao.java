@@ -1,6 +1,6 @@
 package com.lab7.dao;
 
-import com.lab7.dragon.*;
+import com.lab7.entity.*;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -34,8 +34,9 @@ public class DragonDao implements GenericDao<Dragon, Integer> {
                             "DRAGON_TYPE, " +
                             "DRAGON_CHARACTER, " +
                             "CAVE_DEPTH, " +
-                            "CAVE_NUM_OF_TREASURES)" +
-                            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+                            "CAVE_NUM_OF_TREASURES," +
+                            "USER_NAME)" +
+                            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
             );
 
             convertToStatement(dragon, statement);
@@ -51,9 +52,8 @@ public class DragonDao implements GenericDao<Dragon, Integer> {
     }
 
     @Override
-    public List<Dragon> saveAll(List<Dragon> entities) {
+    public void saveAll(List<Dragon> entities) {
         entities.forEach(this::save);
-        return entities;
     }
 
     @Override
@@ -106,7 +106,9 @@ public class DragonDao implements GenericDao<Dragon, Integer> {
                             "DRAGON_TYPE=?, " +
                             "DRAGON_CHARACTER=?, " +
                             "CAVE_DEPTH=?, " +
-                            "CAVE_NUM_OF_TREASURES=? where id=?"
+                            "CAVE_NUM_OF_TREASURES=?, " +
+                            "USER_NAME=?" +
+                            "where id=?"
             );
 
             convertToStatement(dragon, statement);
@@ -148,26 +150,27 @@ public class DragonDao implements GenericDao<Dragon, Integer> {
     }
 
     @Override
-    public boolean deleteAll() {
+    public void deleteAll() {
         try {
             PreparedStatement statement = jdbc.getConnection().prepareStatement("TRUNCATE dragon");
-            return statement.executeUpdate() > 0;
+            statement.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return false;
     }
 
     private Dragon convertToDragon(ResultSet resultSet) throws SQLException {
         Dragon dragon = new Dragon();
-        dragon.setName(resultSet.getString(1));
-        dragon.setCoordinates(new Coordinates(resultSet.getDouble(2), resultSet.getInt(3)));
-        dragon.setCreationDate(resultSet.getString(4));
-        dragon.setAge(resultSet.getLong(5));
-        dragon.setColor(Color.valueOf(resultSet.getString(6)));
-        dragon.setType(DragonType.valueOf(resultSet.getString(7)));
-        dragon.setCharacter(DragonCharacter.valueOf(resultSet.getString(8)));
-        dragon.setCave(new DragonCave(resultSet.getLong(9), resultSet.getLong(10)));
+        dragon.setId(resultSet.getInt(1));
+        dragon.setName(resultSet.getString(2));
+        dragon.setCoordinates(new Coordinates(resultSet.getDouble(3), resultSet.getInt(4)));
+        dragon.setCreationDate(resultSet.getString(5));
+        dragon.setAge(resultSet.getLong(6));
+        dragon.setColor(Color.valueOf(resultSet.getString(7)));
+        dragon.setType(DragonType.valueOf(resultSet.getString(8)));
+        dragon.setCharacter(DragonCharacter.valueOf(resultSet.getString(9)));
+        dragon.setCave(new DragonCave(resultSet.getLong(10), resultSet.getLong(11)));
+        dragon.setUser_name(resultSet.getString(12));
         return dragon;
     }
 
@@ -182,5 +185,6 @@ public class DragonDao implements GenericDao<Dragon, Integer> {
         statement.setString(8, dragon.getCharacter().name());
         statement.setLong(9, dragon.getCave().getDepth());
         statement.setLong(10, dragon.getCave().getNumberOfTreasures());
+        statement.setString(11, dragon.getUser_name());
     }
 }

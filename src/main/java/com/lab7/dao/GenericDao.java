@@ -12,7 +12,7 @@ public interface GenericDao<E, ID> {
 
     E save(E entity);
 
-    List<E> saveAll(List<E> entities);
+    void saveAll(List<E> entities);
 
     Stack<E> findAll();
 
@@ -24,6 +24,6 @@ public interface GenericDao<E, ID> {
 
     boolean deleteById(ID id);
 
-    boolean deleteAll();
+    void deleteAll();
 
 }

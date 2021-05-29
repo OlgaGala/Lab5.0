@@ -1,6 +1,6 @@
 package com.lab7.command;
 
-import com.lab7.dragon.Dragon;
+import com.lab7.entity.Dragon;
 import com.lab7.message.Message;
 import com.lab7.service.DragonService;
 import lombok.Getter;
@@ -21,7 +21,7 @@ public class RemoveAtIndex extends Command {
         int index = Integer.parseInt(getArg(message.getCommand()));
 
         for (int i = 0; i < getDragonList().size(); i++) {
-            if(index == i && getDragonService().delete(getDragonList().get(i))) {
+            if(index == i && getDragonService().delete(getDragonList().get(i), message.getUser())) {
                 getDragonList().remove(getDragonList().get(i));
                 return getFormatter().formatBooleanOperation(true);
             }

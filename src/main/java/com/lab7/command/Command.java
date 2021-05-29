@@ -1,6 +1,6 @@
 package com.lab7.command;
 
-import com.lab7.dragon.Dragon;
+import com.lab7.entity.Dragon;
 import com.lab7.exception.NoSuchCommandException;
 import com.lab7.i18n.Messenger;
 import com.lab7.i18n.MessengerFactory;
@@ -50,7 +50,7 @@ public abstract class Command {
 
     public static Class<? extends Command> validateCommand(String commandName) {
 
-        Reflections reflections = new Reflections("com.olga.command");
+        Reflections reflections = new Reflections("com.lab7");
         Set<Class<? extends Command>> classes = reflections.getSubTypesOf(Command.class);
 
         for (Class<? extends Command> c: classes) {

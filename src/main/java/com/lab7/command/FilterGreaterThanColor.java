@@ -1,7 +1,7 @@
 package com.lab7.command;
 
-import com.lab7.dragon.Color;
-import com.lab7.dragon.Dragon;
+import com.lab7.entity.Color;
+import com.lab7.entity.Dragon;
 import com.lab7.message.Message;
 import com.lab7.service.DragonService;
 import lombok.Getter;

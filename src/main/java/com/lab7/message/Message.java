@@ -1,6 +1,7 @@
 package com.lab7.message;
 
-import com.lab7.dragon.Dragon;
+import com.lab7.entity.Dragon;
+import com.lab7.entity.User;
 import lombok.Data;
 
 import java.io.Serializable;

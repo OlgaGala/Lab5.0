@@ -1,7 +1,7 @@
 package com.lab7.command;
 
 import com.lab7.command.annotation.AttachedObj;
-import com.lab7.dragon.Dragon;
+import com.lab7.entity.Dragon;
 import com.lab7.message.Message;
 import com.lab7.service.DragonService;
 import lombok.Getter;
@@ -30,7 +30,7 @@ public class UpdateId extends Command {
                     Dragon dragon = message.getDragon();
                     Set<ConstraintViolation<Dragon>> violations = getValidator().validate(dragon);
 
-                    if(violations.isEmpty() && getDragonService().update(dragon)) {
+                    if(violations.isEmpty() && getDragonService().update(dragon, message.getUser())) {
                         d = dragon;
                         return getFormatter().formatBooleanOperation(true);
                     }

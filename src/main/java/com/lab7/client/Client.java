@@ -1,8 +1,8 @@
 package com.lab7.client;
 
-import com.lab7.dragon.Dragon;
+import com.lab7.entity.Dragon;
 import com.lab7.message.Message;
-import com.lab7.message.User;
+import com.lab7.entity.User;
 import org.apache.commons.lang3.SerializationUtils;
 
 import java.io.IOException;

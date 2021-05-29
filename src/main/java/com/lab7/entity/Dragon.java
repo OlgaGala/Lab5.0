@@ -1,4 +1,4 @@
-package com.lab7.dragon;
+package com.lab7.entity;
 
 import com.lab7.i18n.Messenger;
 import com.lab7.i18n.MessengerFactory;
@@ -47,13 +47,17 @@ public class Dragon implements Comparable<Dragon>, Serializable {
 
     private DragonCave cave; //Поле может быть null
 
+    @NotNull
+    private String user_name;
+
     public Dragon(String name,
                   Coordinates coordinates,
                   long age,
                   Color color,
                   DragonType type,
                   DragonCharacter character,
-                  DragonCave cave) {
+                  DragonCave cave,
+                  String user_name) {
         this.id = static_id++;
         this.name = name;
         this.coordinates = coordinates;
@@ -62,6 +66,7 @@ public class Dragon implements Comparable<Dragon>, Serializable {
         this.type = type;
         this.character = character;
         this.cave = cave;
+        this.user_name = user_name;
 
         // Форматируем дату создания в обычную строку, чтобы ее было удобно сереализовывать
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");

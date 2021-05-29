@@ -1,7 +1,8 @@
 package com.lab7.io;
 
-import com.lab7.dragon.Dragon;
-import com.lab7.dragon.DragonCave;
+import com.lab7.entity.Dragon;
+import com.lab7.entity.DragonCave;
+import com.lab7.entity.User;
 
 import java.util.Scanner;
 
@@ -23,7 +24,7 @@ public class FileUserInput extends UserInput {
      * @throws Exception - исключение, брошенное в случае некорректных данных в файле
      */
     @Override
-    public Dragon enterElement() throws Exception {
+    public Dragon enterElement(User user) throws Exception {
         return new Dragon(readName(),
                 readCoordinates(),
                 readAge(),
@@ -33,7 +34,8 @@ public class FileUserInput extends UserInput {
                 new DragonCave(
                         readDepth(),
                         readNumberOfTreasures()
-                )
+                ),
+                user.getName()
         );
     }
 

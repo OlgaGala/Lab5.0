@@ -1,4 +1,4 @@
-package com.lab7.dragon;
+package com.lab7.entity;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;

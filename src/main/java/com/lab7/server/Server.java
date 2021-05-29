@@ -6,7 +6,7 @@ import com.lab7.command.manager.CommandManager;
 import com.lab7.i18n.Messenger;
 import com.lab7.i18n.MessengerFactory;
 import com.lab7.message.Message;
-import com.lab7.message.User;
+import com.lab7.entity.User;
 import com.lab7.print.implementation.FormatterImpl;
 import com.lab7.print.implementation.PrinterImpl;
 import com.lab7.dao.DragonDao;
@@ -28,7 +28,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -210,7 +209,7 @@ public class Server {
         readLock.lock();
         try {
             for (User u : users) {
-                if (u.equals(message.getUser()) && u.getPassword().equals(message.getUser().getPassword())) {
+                if (u.getName().equals(message.getUser().getName()) && u.getPassword().equals(message.getUser().getPassword())) {
                     message.setResult(ServerHelper.SL);
                     u.setAddress(client.socket().getRemoteSocketAddress().toString());
                     System.out.println("User authorized: " + u);
@@ -258,6 +257,7 @@ public class Server {
                         .setUserDao(userService)
                         .build()
         ).start();
+
     }
 
 }

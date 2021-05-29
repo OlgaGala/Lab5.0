@@ -1,6 +1,7 @@
 package com.lab7.io;
 
-import com.lab7.dragon.*;
+import com.lab7.entity.*;
+import com.lab7.entity.User;
 
 import java.util.Scanner;
 
@@ -19,7 +20,7 @@ public class ConsoleUserInput extends UserInput {
      * @return - введенный объект
      */
     @Override
-    public Dragon enterElement() throws Exception {
+    public Dragon enterElement(User user) throws Exception {
 
         String name;
         Coordinates coordinates;
@@ -91,7 +92,7 @@ public class ConsoleUserInput extends UserInput {
         System.out.println(messenger.getMessage("askForNull"));
         String result = new Scanner(System.in).nextLine();
 
-        return new Dragon(name, coordinates, age, color, type, character, result.equals("NULL") ? new DragonCave() : enterCave());
+        return new Dragon(name, coordinates, age, color, type, character, result.equals("NULL") ? new DragonCave() : enterCave(), user.getName());
     }
 
     @Override

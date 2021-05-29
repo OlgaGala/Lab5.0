@@ -1,6 +1,6 @@
 package com.lab7.dao;
 
-import com.lab7.message.User;
+import com.lab7.entity.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,9 +25,8 @@ public class UserDao implements GenericDao<User, String> {
             PreparedStatement statement = jdbc.getConnection().prepareStatement(
                     "INSERT INTO user_lab (" +
                             "name, " +
-                            "password, " +
-                            "address) " +
-                            "VALUES (?, ?, ?)"
+                            "password) " +
+                            "VALUES (?, ?)"
             );
 
             convertToStatement(user, statement);
@@ -37,16 +36,15 @@ public class UserDao implements GenericDao<User, String> {
             if(rowsInserted > 0) {
                 return user;
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return null;
     }
 
     @Override
-    public List<User> saveAll(List<User> entities) {
+    public void saveAll(List<User> entities) {
         entities.forEach(this::save);
-        return entities;
     }
 
     @Override
@@ -96,8 +94,7 @@ public class UserDao implements GenericDao<User, String> {
         try {
             PreparedStatement statement = jdbc.getConnection().prepareStatement(
                     "UPDATE user_lab SET " +
-                            "password=?, " +
-                            "address=? " +
+                            "password=? " +
                             "where name=?"
             );
 
@@ -140,27 +137,24 @@ public class UserDao implements GenericDao<User, String> {
     }
 
     @Override
-    public boolean deleteAll() {
+    public void deleteAll() {
         try {
             PreparedStatement statement = jdbc.getConnection().prepareStatement("TRUNCATE user_lab");
-            return statement.executeUpdate() > 0;
+            statement.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return false;
     }
 
     private User convertToUser(ResultSet resultSet) throws SQLException {
         User user = new User();
         user.setName(resultSet.getString(1));
         user.setPassword(resultSet.getString(2));
-        user.setAddress(resultSet.getString(3));
         return user;
     }
 
     private void convertToStatement(User user, PreparedStatement statement) throws SQLException {
         statement.setString(1, user.getName());
         statement.setString(2, user.getPassword());
-        statement.setString(3, user.getAddress());
     }
 }
