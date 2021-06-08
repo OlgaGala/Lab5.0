@@ -7,3 +7,7 @@ plugins {
 }
 
 description = 'server'
+
+dependencies {
+    implementation project(':api')
+}
