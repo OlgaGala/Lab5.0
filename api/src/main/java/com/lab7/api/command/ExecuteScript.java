@@ -4,7 +4,7 @@ import com.lab7.api.command.manager.CommandManager;
 import com.lab7.api.entity.Dragon;
 import com.lab7.api.io.FileUserInput;
 import com.lab7.api.io.UserInput;
-import com.lab7.api.message.Message;
+import com.lab7.api.message.MessageReq;
 import com.lab7.api.service.DragonService;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,8 +26,8 @@ public class ExecuteScript extends Command {
 
 
     @Override
-    public String execute(Message message) throws Exception {
-        return execute_script(getArg(message.getCommand()));
+    public String execute(MessageReq message) throws Exception {
+        return execute_script(getArg(message.getCommand()), message);
     }
 
     /**
@@ -37,7 +37,7 @@ public class ExecuteScript extends Command {
      * @return - Результат работы всего скрипта
      * @throws Exception - В случае отсутствия файла или ошибок в скрипте
      */
-    public String execute_script(String fileName) throws Exception {
+    public String execute_script(String fileName, MessageReq messageReq) throws Exception {
 
         this.userInput = new FileUserInput(new Scanner(new File(fileName)));
 
@@ -56,7 +56,7 @@ public class ExecuteScript extends Command {
                 if(command.equals("executescript " + fileName)) {
                     result.append(getMessenger().getMessage("recursiveCallScript")).append("\n");
                 } else {
-                    result.append(manager.executeCommand(new Message(command))).append("\n");
+                    result.append(manager.executeCommand(new MessageReq(messageReq.getUser(), command))).append("\n");
                 }
             }
 

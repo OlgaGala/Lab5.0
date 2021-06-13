@@ -4,7 +4,8 @@ import com.lab7.api.command.annotation.AttachedObj;
 import com.lab7.api.entity.Dragon;
 import com.lab7.api.entity.DragonCave;
 import com.lab7.api.io.UserInput;
-import com.lab7.api.message.Message;
+import com.lab7.api.message.MessageReq;
+import com.lab7.api.message.MessageReqObj;
 import com.lab7.api.service.DragonService;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,9 +25,9 @@ public class RemoveAllByCave extends Command {
     }
 
     @Override
-    public String execute(Message message) throws Exception {
+    public String execute(MessageReq message) throws Exception {
 
-        DragonCave dragonCave = message.getDragon().getCave();
+        DragonCave dragonCave = ((MessageReqObj) message).getDragon().getCave();
 
         Set<ConstraintViolation<DragonCave>> violations = getValidator().validate(dragonCave);
 

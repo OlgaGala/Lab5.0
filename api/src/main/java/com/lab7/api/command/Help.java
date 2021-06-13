@@ -1,7 +1,7 @@
 package com.lab7.api.command;
 
 import com.lab7.api.entity.Dragon;
-import com.lab7.api.message.Message;
+import com.lab7.api.message.MessageReq;
 import com.lab7.api.service.DragonService;
 import org.reflections.Reflections;
 
@@ -16,7 +16,7 @@ public class Help extends Command {
     }
 
     @Override
-    public String execute(Message ignore) {
+    public String execute(MessageReq ignore) {
 
         Reflections reflections = new Reflections("com.olga.command");
         Set<Class<? extends Command>> classes = reflections.getSubTypesOf(Command.class);

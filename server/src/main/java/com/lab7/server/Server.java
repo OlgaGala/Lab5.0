@@ -5,8 +5,9 @@ import com.lab7.api.command.Save;
 import com.lab7.api.command.manager.CommandManager;
 import com.lab7.api.i18n.Messenger;
 import com.lab7.api.i18n.MessengerFactory;
-import com.lab7.api.message.Message;
 import com.lab7.api.entity.User;
+import com.lab7.api.message.MessageReq;
+import com.lab7.api.message.MessageResp;
 import com.lab7.api.print.implementation.FormatterImpl;
 import com.lab7.api.print.implementation.PrinterImpl;
 import com.lab7.api.dao.DragonDao;
@@ -31,6 +32,7 @@ import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -155,16 +157,17 @@ public class Server {
 
         // Десериализуем Message и, исходя из команды, запускаем
         // авторизацию, регистрацию, либо обычное выполнение команды
-        Message message = SerializationUtils.deserialize(bytes);
+        MessageReq message = SerializationUtils.deserialize(bytes);
+        AtomicReference<MessageResp> response = new AtomicReference<>(new MessageResp());
 
         // Выполняем необходимую команду в новом потоке
         new Thread(() -> {
             switch (message.getCommand()) {
-                case "login": login(client, message); break;
-                case "registration": registration(client, message); break;
+                case "login": response.set(login(client, message)); break;
+                case "registration": response.set(registration(client, message)); break;
                 default:
                     try {
-                        serverHelper.getCommandManager().executeCommand(message);
+                        response.set(serverHelper.getCommandManager().executeCommand(message));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -174,14 +177,14 @@ public class Server {
         // Отправляем результат в новом потоке с помощью cachedThreadPool
         responseExecutor.submit(() -> {
             try {
-                sendResponse(client, message);
+                sendResponse(client, response.get());
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
     }
 
-    private void sendResponse(SocketChannel client, Message message) throws IOException {
+    private void sendResponse(SocketChannel client, MessageResp message) throws IOException {
         // Сериализуем Message и заворачиваем его в ByteBuffer
         // Отправляем результат клиенту
         ByteBuffer responseBuffer = ByteBuffer.wrap(SerializationUtils.serialize(message));
@@ -203,14 +206,17 @@ public class Server {
         logger.info("New connection at: " + client.socket().getRemoteSocketAddress());
     }
 
-    public void login(SocketChannel client, Message message) {
-        message.setResult(ServerHelper.FL);
+    public MessageResp login(SocketChannel client, MessageReq message) {
+
+        MessageResp result = new MessageResp();
+
+        result.setResult(ServerHelper.FL);
 
         readLock.lock();
         try {
             for (User u : users) {
                 if (u.getName().equals(message.getUser().getName()) && u.getPassword().equals(message.getUser().getPassword())) {
-                    message.setResult(ServerHelper.SL);
+                    result.setResult(ServerHelper.SL);
                     u.setAddress(client.socket().getRemoteSocketAddress().toString());
                     System.out.println("User authorized: " + u);
                     break;
@@ -219,19 +225,24 @@ public class Server {
         } finally {
             readLock.unlock();
         }
+
+        return result;
     }
 
-    public void registration(SocketChannel client, Message message) {
-        message.setResult(ServerHelper.SR);
+    public MessageResp registration(SocketChannel client, MessageReq message) {
+
+        MessageResp result = new MessageResp();
+
+        result.setResult(ServerHelper.SR);
         writeLock.lock();
         try {
             for (User u : users) {
                 if (u.getName().equals(message.getUser().getName())) {
-                    message.setResult(ServerHelper.FR);
+                    result.setResult(ServerHelper.FR);
                     break;
                 }
             }
-            if (message.getResult().equals(ServerHelper.SR)) {
+            if (result.getResult().equals(ServerHelper.SR)) {
                 message.getUser().setAddress(client.socket().getRemoteSocketAddress().toString());
                 serverHelper.getUserService().save(message.getUser());
                 users.add(message.getUser());
@@ -240,6 +251,8 @@ public class Server {
         } finally {
             writeLock.unlock();
         }
+
+        return result;
     }
 
     public static void main(String[] args) throws Exception {

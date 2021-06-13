@@ -1,7 +1,7 @@
 package com.lab7.api.command;
 
 import com.lab7.api.entity.Dragon;
-import com.lab7.api.message.Message;
+import com.lab7.api.message.MessageReq;
 import com.lab7.api.service.DragonService;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,7 +22,7 @@ public class Info extends Command {
     }
 
     @Override
-    public String execute(Message ignore) {
+    public String execute(MessageReq ignore) {
         String fileCreationDate = null;
         String elementType = null;
 

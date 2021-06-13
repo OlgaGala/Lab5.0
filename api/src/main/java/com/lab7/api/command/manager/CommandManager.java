@@ -5,7 +5,8 @@ import com.lab7.api.command.ExecuteScript;
 import com.lab7.api.entity.Dragon;
 import com.lab7.api.i18n.Messenger;
 import com.lab7.api.i18n.MessengerFactory;
-import com.lab7.api.message.Message;
+import com.lab7.api.message.MessageReq;
+import com.lab7.api.message.MessageResp;
 import com.lab7.api.print.api.Formatter;
 import com.lab7.api.print.api.Printer;
 import com.lab7.api.service.DragonService;
@@ -43,7 +44,9 @@ public class CommandManager {
     private final Lock readLock = readWriteLock.readLock();
     private final Lock writeLock = readWriteLock.writeLock();
 
-    public Message executeCommand(Message message) throws Exception {
+    public MessageResp executeCommand(MessageReq message) throws Exception {
+
+        MessageResp messageResult = new MessageResp();
 
         Reflections reflections = new Reflections("com.lab7");
         Set<Class<? extends Command>> classes = reflections.getSubTypesOf(Command.class);
@@ -77,7 +80,7 @@ public class CommandManager {
         // Блокируем операцию, чтобы другие потоки не могли получить доступ во время записи
         writeLock.lock();
         try {
-            message.setResult(
+            messageResult.setResult(
                     command[0] != null
                             ? command[0].execute(message)
                             : messenger.getMessage("noSuchCommand")
@@ -87,6 +90,6 @@ public class CommandManager {
         }
 
 
-        return message;
+        return messageResult;
     }
 }

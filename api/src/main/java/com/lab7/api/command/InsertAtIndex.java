@@ -3,7 +3,8 @@ package com.lab7.api.command;
 import com.lab7.api.command.annotation.AttachedObj;
 import com.lab7.api.entity.Dragon;
 import com.lab7.api.io.UserInput;
-import com.lab7.api.message.Message;
+import com.lab7.api.message.MessageReq;
+import com.lab7.api.message.MessageReqObj;
 import com.lab7.api.service.DragonService;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,11 +24,11 @@ public class InsertAtIndex extends Command {
     }
 
     @Override
-    public String execute(Message message) throws Exception {
+    public String execute(MessageReq message) throws Exception {
 
         String index = getArg(message.getCommand());
 
-        Dragon dragon = message.getDragon();
+        Dragon dragon = ((MessageReqObj) message).getDragon();
 
         Set<ConstraintViolation<Dragon>> violations = getValidator().validate(dragon);
 

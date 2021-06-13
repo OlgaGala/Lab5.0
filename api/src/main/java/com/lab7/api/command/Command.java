@@ -4,7 +4,7 @@ import com.lab7.api.entity.Dragon;
 import com.lab7.api.exception.NoSuchCommandException;
 import com.lab7.api.i18n.Messenger;
 import com.lab7.api.i18n.MessengerFactory;
-import com.lab7.api.message.Message;
+import com.lab7.api.message.MessageReq;
 import com.lab7.api.print.api.Formatter;
 import com.lab7.api.print.implementation.FormatterImpl;
 
@@ -42,7 +42,7 @@ public abstract class Command {
         validator = factory.getValidator();
     }
 
-    public abstract String execute(Message message) throws Exception;
+    public abstract String execute(MessageReq message) throws Exception;
 
     protected String getArg(String command) {
         return command.split(" ")[1];

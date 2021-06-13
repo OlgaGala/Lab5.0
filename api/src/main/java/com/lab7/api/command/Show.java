@@ -1,7 +1,7 @@
 package com.lab7.api.command;
 
 import com.lab7.api.entity.Dragon;
-import com.lab7.api.message.Message;
+import com.lab7.api.message.MessageReq;
 import com.lab7.api.service.DragonService;
 
 import java.util.Comparator;
@@ -15,7 +15,7 @@ public class Show extends Command {
     }
 
     @Override
-    public String execute(Message ignore) {
+    public String execute(MessageReq ignore) {
         return getFormatter().formatCollection(
                 getDragonList()
                         .stream()

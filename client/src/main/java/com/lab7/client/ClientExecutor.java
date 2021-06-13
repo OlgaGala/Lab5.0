@@ -5,7 +5,8 @@ import com.lab7.api.command.annotation.AttachedObj;
 import com.lab7.api.command.annotation.AttachedObjFactory;
 import com.lab7.api.entity.Dragon;
 import com.lab7.api.entity.User;
-import com.lab7.api.message.Message;
+import com.lab7.api.message.MessageReq;
+import com.lab7.api.message.MessageResp;
 import com.lab7.api.print.api.Printer;
 import com.lab7.api.print.implementation.PrinterImpl;
 import lombok.AllArgsConstructor;
@@ -37,9 +38,9 @@ public class ClientExecutor {
                     String[] array = response.split(" ");
                     String commandName = array[0];
 
-                    Message message = client.prepareRequest(response, validateAnnotation(Command.validateCommand(commandName), user));
+                    MessageReq message = client.prepareRequest(response, validateAnnotation(Command.validateCommand(commandName), user));
                     message.setUser(user);
-                    Message result = client.sendRequest(message);
+                    MessageResp result = client.sendRequest(message);
 
                     printer.printResult(result.getResult());
                 }

@@ -2,7 +2,9 @@ package com.lab7.client;
 
 import com.lab7.api.entity.Dragon;
 import com.lab7.api.entity.User;
-import com.lab7.api.message.Message;
+import com.lab7.api.message.MessageReq;
+import com.lab7.api.message.MessageReqObj;
+import com.lab7.api.message.MessageResp;
 import org.apache.commons.lang3.SerializationUtils;
 
 import java.io.IOException;
@@ -99,17 +101,17 @@ public class Client {
 
     // Вход
     public String signIn(User user) {
-        Message message = sendRequest(new Message("login", user));
+        MessageResp message = sendRequest(new MessageReq(user, "login"));
         return message.getResult();
     }
 
     // Регистрация
     public String signUp(User user) {
-        Message message = sendRequest(new Message("registration", user));
+        MessageResp message = sendRequest(new MessageReq(user,"registration"));
         return message.getResult();
     }
 
-    public Message sendRequest(Message message) {
+    public MessageResp sendRequest(MessageReq message) {
         // Сериализуем Message и обертываем его в ByteBuffer
         ByteBuffer requestBuffer = ByteBuffer.wrap(SerializationUtils.serialize(message));
         try {
@@ -125,7 +127,7 @@ public class Client {
         return null;
     }
 
-    public Message getResponse() throws Exception {
+    public MessageResp getResponse() throws Exception {
         // Инициализируем ByteBuffer
         ByteBuffer responseBuffer = ByteBuffer.allocate(1024 * 1024);
         responseBuffer.clear();
@@ -145,8 +147,8 @@ public class Client {
         return SerializationUtils.deserialize(bytes);
     }
 
-    public Message prepareRequest(String command, Dragon dragon) {
-        return new Message(command, dragon);
+    public MessageReq prepareRequest(String command, Dragon dragon) {
+        return new MessageReqObj(command, dragon);
     }
 
 

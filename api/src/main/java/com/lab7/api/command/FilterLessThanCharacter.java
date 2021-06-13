@@ -2,7 +2,7 @@ package com.lab7.api.command;
 
 import com.lab7.api.entity.Dragon;
 import com.lab7.api.entity.DragonCharacter;
-import com.lab7.api.message.Message;
+import com.lab7.api.message.MessageReq;
 import com.lab7.api.service.DragonService;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,7 +19,7 @@ public class FilterLessThanCharacter extends Command {
     }
 
     @Override
-    public String execute(Message message) {
+    public String execute(MessageReq message) {
 
         String character = getArg(message.getCommand());
 
