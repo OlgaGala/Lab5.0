@@ -207,35 +207,29 @@ public class Server {
     }
 
     public MessageResp login(SocketChannel client, MessageReq message) {
-
-        MessageResp result = new MessageResp();
-
-        result.setResult(ServerHelper.FL);
-
         readLock.lock();
         try {
+            MessageResp result = new MessageResp();
+            result.setResult(ServerHelper.FL);
             for (User u : users) {
                 if (u.getName().equals(message.getUser().getName()) && u.getPassword().equals(message.getUser().getPassword())) {
                     result.setResult(ServerHelper.SL);
                     u.setAddress(client.socket().getRemoteSocketAddress().toString());
-                    System.out.println("User authorized: " + u);
                     break;
                 }
             }
+            return result;
         } finally {
             readLock.unlock();
         }
-
-        return result;
     }
 
     public MessageResp registration(SocketChannel client, MessageReq message) {
-
-        MessageResp result = new MessageResp();
-
-        result.setResult(ServerHelper.SR);
         writeLock.lock();
         try {
+            MessageResp result = new MessageResp();
+
+            result.setResult(ServerHelper.SR);
             for (User u : users) {
                 if (u.getName().equals(message.getUser().getName())) {
                     result.setResult(ServerHelper.FR);
@@ -243,16 +237,15 @@ public class Server {
                 }
             }
             if (result.getResult().equals(ServerHelper.SR)) {
-                message.getUser().setAddress(client.socket().getRemoteSocketAddress().toString());
                 serverHelper.getUserService().save(message.getUser());
                 users.add(message.getUser());
-                System.out.println("New user: " + message.getUser());
             }
+
+            return result;
+
         } finally {
             writeLock.unlock();
         }
-
-        return result;
     }
 
     public static void main(String[] args) throws Exception {
