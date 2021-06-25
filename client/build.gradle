@@ -1,11 +1,15 @@
 plugins {
     id 'java'
+    id 'maven-publish'
 }
 
 version 'unspecified'
 
 repositories {
     mavenCentral()
+    maven {
+        url = uri('https://repo.maven.apache.org/maven2/')
+    }
 }
 
 dependencies {
@@ -16,6 +20,10 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.20'
     annotationProcessor 'org.projectlombok:lombok:1.18.20'
     implementation project(':api')
+    // https://mvnrepository.com/artifact/org.openjfx/javafx
+    implementation 'org.openjfx:javafx-controls:11.0.2'
+    implementation 'org.openjfx:javafx-fxml:11.0.2'
+
 }
 
 test {
