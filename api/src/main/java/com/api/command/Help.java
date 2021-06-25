@@ -18,7 +18,7 @@ public class Help extends Command {
     @Override
     public String execute(MessageReq ignore) {
 
-        Reflections reflections = new Reflections("com.olga.command");
+        Reflections reflections = new Reflections("com.api");
         Set<Class<? extends Command>> classes = reflections.getSubTypesOf(Command.class);
 
         StringBuilder result = new StringBuilder("");

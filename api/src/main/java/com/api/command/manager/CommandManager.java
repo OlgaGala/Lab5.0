@@ -48,7 +48,7 @@ public class CommandManager {
 
         MessageResp messageResult = new MessageResp();
 
-        Reflections reflections = new Reflections("com.lab7");
+        Reflections reflections = new Reflections("com.api");
         Set<Class<? extends Command>> classes = reflections.getSubTypesOf(Command.class);
 
         logger.info("Execute command: " + message.getCommand());

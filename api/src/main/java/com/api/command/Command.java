@@ -51,7 +51,7 @@ public abstract class Command {
 
     public static Class<? extends Command> validateCommand(String commandName) {
 
-        Reflections reflections = new Reflections("com.lab7.com.api");
+        Reflections reflections = new Reflections("com.api");
         Set<Class<? extends Command>> classes = reflections.getSubTypesOf(Command.class);
 
         for (Class<? extends Command> c: classes) {
