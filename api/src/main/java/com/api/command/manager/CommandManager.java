@@ -19,6 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Constructor;
+import java.util.Locale;
 import java.util.Set;
 import java.util.Stack;
 import java.util.concurrent.locks.Lock;
@@ -91,5 +92,11 @@ public class CommandManager {
 
 
         return messageResult;
+    }
+
+    public static String[] getCommandNames() {
+        Reflections reflections = new Reflections("com.api");
+        Set<Class<? extends Command>> classes = reflections.getSubTypesOf(Command.class);
+        return classes.stream().map(c -> c.getSimpleName().toLowerCase(Locale.ROOT)).toArray(String[]::new);
     }
 }

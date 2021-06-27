@@ -1,33 +1,20 @@
 package com.client.ui.controller;
 
+import com.api.command.manager.CommandManager;
 import com.api.entity.Dragon;
 import com.api.i18n.Messenger;
 import com.api.i18n.MessengerFactory;
+import com.client.ClientApplication;
 import com.client.util.CustomTableView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
-
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.net.DatagramPacket;
 import java.net.URL;
-import java.text.DateFormat;
 import java.util.*;
 
 public class MainController extends GenericController implements Initializable {
@@ -41,16 +28,10 @@ public class MainController extends GenericController implements Initializable {
     private ComboBox<String> commandsList;
 
     @FXML
-    private TextField humanName;
+    private TextField name;
 
     @FXML
-    private TextField humanAge;
-
-    @FXML
-    private TextField skillName;
-
-    @FXML
-    private TextField skillInfo;
+    private TextField age;
 
     @FXML
     private TextField xCoordinate;
@@ -59,16 +40,13 @@ public class MainController extends GenericController implements Initializable {
     private TextField yCoordinate;
 
     @FXML
-    private Slider slider;
+    private ChoiceBox<String> color;
 
     @FXML
-    private Label labelSize;
+    private ChoiceBox<String> type;
 
     @FXML
-    private Canvas canvas;
-
-    @FXML
-    private Canvas canvasForSelection;
+    private ChoiceBox<String> character;
 
     @FXML
     private TableView table;
@@ -76,63 +54,37 @@ public class MainController extends GenericController implements Initializable {
     @FXML
     private AnchorPane pane;
 
-    private GraphicsContext gc;
-
-    private GraphicsContext gc2;
-
     private Dragon selectedDragon;
 
-    Timer timer;
-
-    private int size = 0;
-    private int x = 0;
-    private int y = 0;
-    private double dX = 0;
-    private double dY = 0;
-    private boolean drag = false;
+    private Timer timer;
 
     public MainController() {
         super("main.fxml");
     }
 
     private void init() {
-//        nickname.setAlignment(Pos.CENTER_RIGHT);
-//        nickname.setText(AuthController.client.getUser().getName());
+        nickname.setAlignment(Pos.CENTER_RIGHT);
+        nickname.setText(ClientApplication.getClient().getUser().getName());
     }
 
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-//        init();
-//        timer = new Timer();
-//        gc = canvas.getGraphicsContext2D();
-//        canvasForSelection.setOpacity(0.5);
-//        gc2 = canvasForSelection.getGraphicsContext2D();
-//        timer.schedule(new CustomTableView(gc, gc2, table), 0, 3000);
-//        commandsList.getItems().addAll(
-//                Login.currentResource.getString("add"),
-//                Login.currentResource.getString("remove"),
-//                Login.currentResource.getString("remove_greater"),
-//                Login.currentResource.getString("remove_lower"),
-//                Login.currentResource.getString("add_if_min"),
-//                Login.currentResource.getString("update"),
-//                Login.currentResource.getString("filter"));
-//        labelSize.setText("0.00");
-//        slider.valueProperty().addListener((observable, oldValue, newValue) -> {
-//            labelSize.setText(String.format("%.2f", newValue));
-//            size = newValue.intValue();
-//        });
-//        currentDate = new Date();
-//        df = DateFormat.getDateInstance(DateFormat.SHORT, currentResource.getLocale());
-//        date.setText(df.format(currentDate));
-//        table.setDisable(true);
-//        table.setOpacity(0);
-//        pane.setCursor(Cursor.MOVE);
+        init();
+
+        this.timer = new Timer();
+        this.timer.schedule(new CustomTableView(table), 0, 3000);
+
+        this.commandsList.getItems().addAll(CommandManager.getCommandNames());
+
+        this.table.setDisable(true);
+        this.table.setOpacity(0);
+        this.pane.setCursor(Cursor.MOVE);
     }
 
 
     @FXML
-    void getHuman(MouseEvent event) {
+    void getDragon(MouseEvent event) {
 //        gc2.clearRect(0, 0, 351, 380);
 //
 //        CustomTableView.storageOld.forEach(h -> {
@@ -173,71 +125,11 @@ public class MainController extends GenericController implements Initializable {
     }
 
     @FXML
-    void drag(MouseEvent event) {
-//        pane.setCursor(Cursor.HAND);
-//        if (selected != null && event.isDragDetect()) {
-//
-//            dX = event.getX();
-//            dY = event.getY();
-//            pane.setCursor(Cursor.MOVE);
-//            drag = true;
-//
-//        }
-    }
-
-    @FXML
-    void mouseReleased(MouseEvent event) {
-//        pane.setCursor(Cursor.DEFAULT);
-//        if (selected != null) {
-//            if ((Math.abs(event.getX() - dX) > 25 || Math.abs(event.getY() - dY) > 25) && drag) {
-//                CustomTableView.moveHuman(selected, dX, dY, event.getX(), event.getY(), selected.getSize(), (int) slider.getValue());
-//                xCoordinate.setText(String.valueOf((int) event.getX()));
-//                yCoordinate.setText(String.valueOf((int) event.getY()));
-//                CustomTableView.newUselessWindow = true;
-//            }
-//        }
-//        drag = false;
-    }
-
-
-    @FXML
-    void scroll(ScrollEvent event) {
-//        if (selected != null) {
-//            double zoomFactor = -1;
-//            double deltaY = event.getDeltaY();
-//            if (deltaY < 0) {
-//                zoomFactor = 2.0 + zoomFactor;
-//            }
-//            if (slider.getValue() + zoomFactor == 0){
-//                zoomFactor = 0;
-//            }
-//            slider.setValue(slider.getValue() + zoomFactor);
-//            CustomTableView.newUselessWindow = true;
-//        }
-    }
-
-    @FXML
     void clear(ActionEvent event) {
 //        clearRemoteControl();
 //        table.getItems().clear();
 //        CustomTableView.storage.stream().forEach(x -> table.getItems().add(x));
 //        table.refresh();
-    }
-
-    @FXML
-    void day(ActionEvent event) {
-//        dark = false;
-//        timer.cancel();
-//        CustomTableView.storageOld.clear();
-//        CustomTableView.newUselessWindow = true;
-//        Stage stageP = (Stage) nickname.getScene().getWindow();
-//        stageP.close();
-//        Stage stage = new Stage();
-//        FXMLLoader loader = new FXMLLoader();
-//        loader.setResources(Login.currentResource);
-//        loader.setLocation(getClass().getClassLoader().getResource("client/UI/MainUIDay.fxml"));
-//        Login.loadScene(stage, loader);
-//        dark = false;
     }
 
     @FXML
@@ -247,7 +139,7 @@ public class MainController extends GenericController implements Initializable {
     }
 
     @FXML
-    void getHumanFromTable(MouseEvent event) {
+    void getDragonFromTable(MouseEvent event) {
 //        if (!table.isDisabled()){
 //            Human h = (Human) table.getSelectionModel().getSelectedItem();
 //            if (h != null) {
@@ -428,9 +320,8 @@ public class MainController extends GenericController implements Initializable {
 
     @FXML
     public void logOut(ActionEvent event) {
-        // TODO
+        ClientApplication.getClient().stop("User has stopped the application");
     }
-
 
     private void showHumanOnPanel(Dragon selected) {
 //        this.selected = selected;
