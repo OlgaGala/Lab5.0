@@ -5,17 +5,21 @@ import com.api.entity.User;
 import com.api.message.MessageReq;
 import com.api.message.MessageReqObj;
 import com.api.message.MessageResp;
+import lombok.AccessLevel;
+import lombok.Getter;
 import org.apache.commons.lang3.SerializationUtils;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
-import java.util.Scanner;
 
 public class Client {
 
     private SocketChannel server;
+
+    @Getter(AccessLevel.PUBLIC)
+    private User user;
 
     public Client() {
         try {
@@ -35,80 +39,28 @@ public class Client {
         }
     }
 
-    public User auth() throws Exception {
-
-        Scanner sc = new Scanner(System.in);
-
-        while (true) {
-
-            System.out.println("Перед использованием необходима авторизация.\n" +
-                    "1 - Войти в существующий аккаунт\n" +
-                    "2 - Зарегистрировать новый аккаунт\n");
-
-            // Вводим ответ
-            String response = sc.nextLine();
-            int userInput;
-            try {
-                userInput = Integer.parseInt(response);
-            } catch (Exception e) {
-                userInput = -1;
-            }
-
-            // Исходя из пользовательского выбора, запускаем либо авторизацию, либо регистрацию
-            String result;
-            User user;
-            switch (userInput) {
-                case 1: result = signIn(user = enterUser()); break;
-                case 2: result = signUp(user = enterUser()); break;
-                default:
-                    System.out.println("Некорректный ввод. Пожалуйста, введите число еще раз");
-                    continue;
-            }
-
-            switch (result) {
-                case "success_login":
-                    System.out.println("Вход выполнен успешно");
-                    return user;
-                case "user_active":
-                    System.err.println("Этот пользователь уже активен. Вы не можете зайти в этот аккаунт");
-                    break;
-                case "failure_login":
-                    System.err.println("Неверные логин или пароль. Повторите попытку");
-                    break;
-                case "success_registration":
-                    System.out.println("Пользователь успешно зарегистрирован");
-                    return user;
-                case "failure_registration":
-                    System.err.println("Пользователь с таким именем уже существует");
-                    break;
-            }
-        }
-    }
-
-    public User enterUser() throws Exception {
-        if(server.isConnected()) {
-            Scanner sc = new Scanner(System.in);
-            System.out.println("Введите логин:");
-            String login = sc.nextLine();
-
-            System.out.println("Введите пароль:");
-            String password = sc.nextLine();
-
-            return new User(login, password);
-        }
-        throw new Exception("Непредвиденная ошибка");
-    }
-
     // Вход
-    public String signIn(User user) {
-        MessageResp message = sendRequest(new MessageReq(user, "login"));
-        return message.getResult();
+    public void signIn(User user) {
+
+        MessageResp response = sendRequest(new MessageReq(user,"login"));
+
+        if(!response.getResult().equals("success_login")) {
+            throw new RuntimeException();
+        }
+
+        this.user = user;
     }
 
     // Регистрация
-    public String signUp(User user) {
-        MessageResp message = sendRequest(new MessageReq(user,"registration"));
-        return message.getResult();
+    public void signUp(User user) {
+
+        MessageResp response = sendRequest(new MessageReq(user,"registration"));
+
+        if(!response.getResult().equals("success_registration")) {
+            throw new RuntimeException();
+        }
+
+        this.user = user;
     }
 
     public MessageResp sendRequest(MessageReq message) {
