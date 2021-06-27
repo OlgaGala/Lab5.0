@@ -1,26 +1,18 @@
 package com.api.i18n;
 
-import java.util.Locale;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
-public interface Messenger {
-    String getMessage(String msg);
+import java.util.ResourceBundle;
 
-    static Locale initLang() {
+@AllArgsConstructor
+@Getter @Setter
+public class Messenger {
 
-        // Возможность выбора языка была отключена. Чтобы ее включить, необходимо заполнить файл re_RU.properties
-        // и раскомментить код ниже, а также закомментить строку Language
+    private ResourceBundle bundle;
 
-        Language language = Language.ru_RU;
-
-//        System.out.println("Пожалуйста, выберите язык (ru_RU, uk_UA). Please, choose your language");
-//        try {
-//            language = Language.valueOf(new Scanner(System.in).nextLine());
-//        } catch (Exception e) {
-//            System.out.println("Пожалуйста, введите корректные данные");
-//            System.exit(-1);
-//        }
-
-        String[] array = language.toString().split("_");
-        return new Locale(array[0], array[1]);
+    public String getMessage(String msg) {
+        return bundle.getString(msg);
     }
 }
