@@ -3,7 +3,6 @@ package com.client.util;
 import com.api.entity.Dragon;
 import com.api.i18n.Messenger;
 import com.api.i18n.MessengerFactory;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -16,20 +15,15 @@ public class CustomTableView extends TimerTask {
     private static final Messenger messenger = MessengerFactory.getMessenger();
 
     private final Stack<Dragon> storageOld;
-
     private final Stack<Dragon> storage;
 
     private final  TableView<Dragon> tableView;
 
-    private final Painter painter;
-
-    public CustomTableView(GraphicsContext gc, GraphicsContext gc2, TableView<Dragon> tableView){
+    public CustomTableView(TableView<Dragon> tableView){
         this.tableView = tableView;
 
         this.storageOld = new Stack<>();
         this.storage = new Stack<>();
-
-        this.painter = new Painter(gc, gc2, storageOld);
 
         this.createTable();
     }
