@@ -6,13 +6,13 @@
 }
 
 #splitpane {
-    -fx-background-color: #ffd0a0;
+    -fx-background-color: #e3e1d6;
 }
 
 #pane1 {
-    -fx-background-color: #ffdec4;
+    -fx-background-color: #e3e1d6;
 }
 
 #hboxHigh {
-    -fx-background-color: #ddaf94;
+    -fx-background-color: #c9bcb6;
 }
