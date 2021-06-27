@@ -27,9 +27,7 @@
             <MenuItem mnemonicParsing="false" onAction="#macedonian" text="Macedonian"/>
             <MenuItem mnemonicParsing="false" onAction="#spanish" text="Spanish"/>
         </Menu>
-        <Menu mnemonicParsing="false" text="%help">
-            <MenuItem mnemonicParsing="false" onAction="#showHelp" text="%about"/>
-        </Menu>
+        <Menu mnemonicParsing="false" text="%help" onAction="#showHelp"/>
     </MenuBar>
     <AnchorPane VBox.vgrow="ALWAYS">
         <cursor>

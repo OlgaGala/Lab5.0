@@ -1,5 +1,6 @@
 package com.client.ui.controller;
 
+import com.api.entity.User;
 import com.api.i18n.Messenger;
 import com.api.i18n.MessengerFactory;
 import com.client.Client;
@@ -8,114 +9,54 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Locale;
-import java.util.ResourceBundle;
-
-
 @Getter @Setter
-public class AuthController {
+public class AuthController extends GenericController {
 
     private static final Messenger messenger = MessengerFactory.getMessenger();
-
-    private static String nickname;
-    private static String password;
-
-    @FXML
-    private TextField nameField;
 
     @FXML
     private PasswordField passwordField;
 
-    public static Client client;
-
     public AuthController() {
-        client = new Client();
+        super("auth.fxml");
     }
 
     @FXML
-    void login(ActionEvent event) {
-        // TODO
+    public void login(ActionEvent event) {
+        try {
+            ClientApplication.getClient().signIn(new User(getNameField().getText(), passwordField.getText()));
+            showMainScene();
+        } catch (Exception e) {
+            e.printStackTrace();
+            showWarning("loginFailure");
+        }
     }
 
     @FXML
-    void register(ActionEvent event) {
-        // TODO
+    public void register(ActionEvent event) {
+        try {
+            ClientApplication.getClient().signUp(new User(getNameField().getText(), passwordField.getText()));
+            showMainScene();
+        } catch (Exception e) {
+            showWarning("registrationFailure");
+        }
     }
 
-    @FXML
-    void showHelp(ActionEvent event) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(messenger.getMessage("help"));
-        alert.setContentText(messenger.getMessage("helpText"));
+    private void showWarning(String waningBody) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(messenger.getMessage("register"));
+        alert.setHeaderText(messenger.getMessage("warning"));
+        alert.setContentText(messenger.getMessage(waningBody));
         alert.showAndWait();
     }
 
-    @FXML
-    void russian(ActionEvent event) {
-
-        // Hide current window
+    private void showMainScene() {
         hideWindow();
-
-        // Change language
-        messenger.setBundle(
-                ResourceBundle.getBundle("com.api.i18n.bundle.Language", new Locale("ru", "RU"))
-        );
-
-        // Load new windows with a new selected language
-        ClientApplication.loadSceneWithLanguage(new Stage());
-    }
-
-    @FXML
-    void ukrainian(ActionEvent event) {
-        // Hide current window
-        hideWindow();
-
-        // Change language
-        MessengerFactory.changeLanguage(
-                ResourceBundle.getBundle("com.api.i18n.bundle.Language", new Locale("uk", "UA"))
-        );
-
-        // Load new windows with a new selected language
-        ClientApplication.loadSceneWithLanguage(new Stage());
-    }
-
-    @FXML
-    void macedonian(ActionEvent event) {
-        // Hide current window
-        hideWindow();
-
-        // Change language
-        MessengerFactory.changeLanguage(
-                ResourceBundle.getBundle("com.api.i18n.bundle.Language", new Locale("mk", "MK"))
-        );
-
-        // Load new windows with a new selected language
-        ClientApplication.loadSceneWithLanguage(new Stage());
-    }
-
-    @FXML
-    void spanish(ActionEvent event) {
-        // Hide current window
-        hideWindow();
-
-        // Change language
-        MessengerFactory.changeLanguage(
-                ResourceBundle.getBundle("com.api.i18n.bundle.Language", new Locale("es", "SV"))
-        );
-
-        // Load new windows with a new selected language
-        ClientApplication.loadSceneWithLanguage(new Stage());
-    }
-
-    void hideWindow() {
-        Window stageP = nameField.getScene().getWindow();
-        stageP.hide();
+        ClientApplication.loadSceneWithLanguage(new Stage(), messenger.getBundle().getLocale(), "main.fxml");
     }
 
 }
