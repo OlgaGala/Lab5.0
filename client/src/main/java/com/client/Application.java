@@ -2,7 +2,6 @@ package com.client;
 
 import com.api.i18n.Messenger;
 import com.api.i18n.MessengerFactory;
-import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -14,7 +13,11 @@ import lombok.SneakyThrows;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class ClientApplication extends Application {
+/**
+ * Главный класс, наследующийся от javafx Application.
+ * Здесь происходит начальная инициализация клиента, и загрузка окон со сценами.
+ */
+public class Application extends javafx.application.Application {
 
     private static final Messenger messenger = MessengerFactory.getMessenger();
 
@@ -41,7 +44,7 @@ public class ClientApplication extends Application {
 
         FXMLLoader loader = new FXMLLoader();
         loader.setResources(messenger.getBundle());
-        loader.setLocation(ClientApplication.class.getClassLoader().getResource(viewName));
+        loader.setLocation(Application.class.getClassLoader().getResource(viewName));
 
         Parent root = loader.load();
         stage.setTitle("Welcome");
@@ -50,6 +53,6 @@ public class ClientApplication extends Application {
     }
 
     public static void main(String[] args) {
-        Application.launch(args);
+        javafx.application.Application.launch(args);
     }
 }
