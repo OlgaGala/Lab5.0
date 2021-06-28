@@ -1,18 +1,24 @@
 package com.client.ui.controller;
 
 import com.api.command.manager.CommandManager;
+import com.api.entity.Color;
 import com.api.entity.Dragon;
+import com.api.entity.DragonCharacter;
+import com.api.entity.DragonType;
 import com.api.i18n.Messenger;
 import com.api.i18n.MessengerFactory;
 import com.client.ClientApplication;
 import com.client.util.CustomTableView;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import java.net.URL;
 import java.util.*;
@@ -49,10 +55,22 @@ public class MainController extends GenericController implements Initializable {
     private ChoiceBox<String> character;
 
     @FXML
+    private TextField depth;
+
+    @FXML
+    private TextField numberOfTreasure;
+
+    @FXML
     private TableView table;
 
     @FXML
     private AnchorPane pane;
+
+    @FXML
+    private Canvas canvasForSelection;
+
+    @FXML
+    private Canvas canvas;
 
     private Dragon selectedDragon;
 
@@ -65,6 +83,16 @@ public class MainController extends GenericController implements Initializable {
     private void init() {
         nickname.setAlignment(Pos.CENTER_RIGHT);
         nickname.setText(ClientApplication.getClient().getUser().getName());
+
+        color.setItems(FXCollections.observableArrayList("RED","BLACK","BLUE","ORANGE"));
+        color.setValue(Color.RED.name());
+
+        type.setItems(FXCollections.observableArrayList("WATER","AIR","FIRE"));
+        color.setValue(DragonType.WATER.name());
+
+        character.setItems(FXCollections.observableArrayList("CUNNING","CHAOTIC","FICKLE"));
+        color.setValue(DragonCharacter.CHAOTIC.name());
+
     }
 
 
@@ -82,9 +110,8 @@ public class MainController extends GenericController implements Initializable {
         this.pane.setCursor(Cursor.MOVE);
     }
 
-
     @FXML
-    void getDragon(MouseEvent event) {
+    public void getDragon(MouseEvent event) {
 //        gc2.clearRect(0, 0, 351, 380);
 //
 //        CustomTableView.storageOld.forEach(h -> {
@@ -106,6 +133,51 @@ public class MainController extends GenericController implements Initializable {
 //        });
     }
 
+    @FXML
+    void drag(MouseEvent event) {
+//        pane.setCursor(Cursor.HAND);
+//        if (selected != null && event.isDragDetect()) {
+//
+//            dX = event.getX();
+//            dY = event.getY();
+//            pane.setCursor(Cursor.MOVE);
+//            drag = true;
+//
+//        }
+
+    }
+
+    @FXML
+    void mouseReleased(MouseEvent event) {
+//        pane.setCursor(Cursor.DEFAULT);
+//        if (selected != null) {
+//            if ((Math.abs(event.getX() - dX) > 25 || Math.abs(event.getY() - dY) > 25) && drag) {
+//                BackTable.moveHuman(selected, dX, dY, event.getX(), event.getY(), selected.getSize(), (int) slider.getValue());
+//                xCoordinate.setText(String.valueOf((int) event.getX()));
+//                yCoordinate.setText(String.valueOf((int) event.getY()));
+//                BackTable.newUselessWindow = true;
+//            }
+//        }
+//        drag = false;
+    }
+
+
+    @FXML
+    void scroll(ScrollEvent event) {
+//        if (selected != null) {
+//            double zoomFactor = -1;
+//            double deltaY = event.getDeltaY();
+//            if (deltaY < 0) {
+//                zoomFactor = 2.0 + zoomFactor;
+//            }
+//            if (slider.getValue() + zoomFactor == 0){
+//                zoomFactor = 0;
+//            }
+//            slider.setValue(slider.getValue() + zoomFactor);
+//            BackTable.newUselessWindow = true;
+//        }
+    }
+
     private void clearRemoteControl() {
 //        humanName.clear();
 //        humanAge.clear();
@@ -125,7 +197,7 @@ public class MainController extends GenericController implements Initializable {
     }
 
     @FXML
-    void clear(ActionEvent event) {
+    public void clear(ActionEvent event) {
 //        clearRemoteControl();
 //        table.getItems().clear();
 //        CustomTableView.storage.stream().forEach(x -> table.getItems().add(x));
@@ -133,13 +205,13 @@ public class MainController extends GenericController implements Initializable {
     }
 
     @FXML
-    void showTable(ActionEvent event) {
+    public void showTable(ActionEvent event) {
 //        table.setDisable(false);
 //        table.setOpacity(1);
     }
 
     @FXML
-    void getDragonFromTable(MouseEvent event) {
+    public void getDragonFromTable(MouseEvent event) {
 //        if (!table.isDisabled()){
 //            Human h = (Human) table.getSelectionModel().getSelectedItem();
 //            if (h != null) {
@@ -149,13 +221,13 @@ public class MainController extends GenericController implements Initializable {
     }
 
     @FXML
-    void hideCanvas(ActionEvent event) {
+    public void hideCanvas(ActionEvent event) {
 //        table.setDisable(true);
 //        table.setOpacity(0);
     }
 
     @FXML
-    void submit(ActionEvent event) {
+    public void submit(ActionEvent event) {
 //
 //        boolean command = false;
 //        boolean numberRight = true;

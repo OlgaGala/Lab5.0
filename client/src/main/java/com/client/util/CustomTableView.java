@@ -14,7 +14,6 @@ public class CustomTableView extends TimerTask {
 
     private static final Messenger messenger = MessengerFactory.getMessenger();
 
-    private final Stack<Dragon> storageOld;
     private final Stack<Dragon> storage;
 
     private final  TableView<Dragon> tableView;
@@ -22,7 +21,6 @@ public class CustomTableView extends TimerTask {
     public CustomTableView(TableView<Dragon> tableView){
         this.tableView = tableView;
 
-        this.storageOld = new Stack<>();
         this.storage = new Stack<>();
 
         this.createTable();
@@ -42,8 +40,8 @@ public class CustomTableView extends TimerTask {
 
     public void createTable() {
 
-        TableColumn<Dragon, Dragon> idColumn = new TableColumn<>(messenger.getMessage("name"));
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        TableColumn<Dragon, Dragon> idColumn = new TableColumn<>(messenger.getMessage("id"));
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
 
 
         TableColumn<Dragon, Dragon> nameColumn = new TableColumn<>(messenger.getMessage("name"));
@@ -79,7 +77,7 @@ public class CustomTableView extends TimerTask {
 
         tableView.getColumns().addAll(
                 idColumn, nameColumn, xColumn,
-                yColumn, ageColumn, characterColumn,
+                yColumn, ageColumn, colorColumn,
                 typeColumn, characterColumn, depthColumn,
                 numberOfTreasureColumn, creationDateColumn
         );

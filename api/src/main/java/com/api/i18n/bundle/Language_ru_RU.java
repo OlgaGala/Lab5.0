@@ -27,17 +27,12 @@ public class Language_ru_RU extends ListResourceBundle {
                 {"desk","Стол"},
                 {"command","Команда"},
                 {"action","Действие"},
-                {"dragon","Дракон"},
                 {"general","Общее"},
-                {"location","Локация"},
-                {"xCoordinate","X координата"},
-                {"yCoordinate","Y координата"},
                 {"submit","Подтвердить"},
                 {"clear","Очистить"},
-                {"skill","Навыки"},
                 {"info","Инфо"},
-                {"size","Размер"},
-                {"pickedSize","Выбранный размер"},
+                {"coordinate_view","Координатное представление"},
+                {"enums","Перечисления"},
 
 
                 // Dragon info
@@ -45,6 +40,7 @@ public class Language_ru_RU extends ListResourceBundle {
                 {"dragons","Драконы"},
                 {"id","Идентификатор"},
                 {"name","Имя"},
+                {"color","Цвет"},
                 {"coordinates","Координаты"},
                 {"creationDate","Дата создания"},
                 {"age","Возраст"},
@@ -52,6 +48,11 @@ public class Language_ru_RU extends ListResourceBundle {
                 {"size","Размер"},
                 {"character","Характер"},
                 {"cave","Пещера"},
+                {"depth","Глубина"},
+                {"numberOfTreasure","Количество богатства"},
+                {"location","Локация"},
+                {"xCoordinate","X координата"},
+                {"yCoordinate","Y координата"},
 
                 // Command description
                 {"infoAdd","Добавить новый элемент в коллекцию"},

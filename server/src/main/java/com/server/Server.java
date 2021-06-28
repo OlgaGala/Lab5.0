@@ -207,7 +207,7 @@ public class Server {
     }
 
     public MessageResp login(SocketChannel client, MessageReq message) {
-        readLock.lock();
+        writeLock.lock();
         try {
             MessageResp result = new MessageResp();
             result.setResult(ServerHelper.FL);
@@ -220,7 +220,7 @@ public class Server {
             }
             return result;
         } finally {
-            readLock.unlock();
+            writeLock.unlock();
         }
     }
 
