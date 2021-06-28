@@ -2,7 +2,10 @@ package com.api.command.manager;
 
 import com.api.command.Command;
 import com.api.command.ExecuteScript;
+import com.api.command.annotation.AttachedObj;
+import com.api.command.annotation.AttachedObjFactory;
 import com.api.entity.Dragon;
+import com.api.entity.User;
 import com.api.i18n.Messenger;
 import com.api.i18n.MessengerFactory;
 import com.api.message.MessageReq;
@@ -98,5 +101,15 @@ public class CommandManager {
         Reflections reflections = new Reflections("com.api");
         Set<Class<? extends Command>> classes = reflections.getSubTypesOf(Command.class);
         return classes.stream().map(c -> c.getSimpleName().toLowerCase(Locale.ROOT)).toArray(String[]::new);
+    }
+
+    public static Dragon validateAnnotation(Class<? extends Command> c, User user) throws Exception {
+
+        if(c.isAnnotationPresent(AttachedObj.class)) {
+            AttachedObj attachedObj = c.getAnnotation(AttachedObj.class);
+
+            return AttachedObjFactory.newInstance(attachedObj.type(), user);
+        }
+        return null;
     }
 }
