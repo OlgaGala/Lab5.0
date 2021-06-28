@@ -1,4 +1,4 @@
-package com.client.util;
+package com.client.ui.util;
 
 import com.api.entity.*;
 
