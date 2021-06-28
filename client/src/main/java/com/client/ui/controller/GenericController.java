@@ -2,7 +2,7 @@ package com.client.ui.controller;
 
 import com.api.i18n.Messenger;
 import com.api.i18n.MessengerFactory;
-import com.client.ClientApplication;
+import com.client.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -39,25 +39,25 @@ public class GenericController {
     @FXML
     public void russian(ActionEvent event) {
         hideWindow();
-        ClientApplication.loadSceneWithLanguage(new Stage(), new Locale("ru", "RU"), viewName);
+        Application.loadSceneWithLanguage(new Stage(), new Locale("ru", "RU"), viewName);
     }
 
     @FXML
     public void ukrainian(ActionEvent event) {
         hideWindow();
-        ClientApplication.loadSceneWithLanguage(new Stage(), new Locale("uk", "UA"), viewName);
+        Application.loadSceneWithLanguage(new Stage(), new Locale("uk", "UA"), viewName);
     }
 
     @FXML
     public void macedonian(ActionEvent event) {
         hideWindow();
-        ClientApplication.loadSceneWithLanguage(new Stage(), new Locale("mk","MK"), viewName);
+        Application.loadSceneWithLanguage(new Stage(), new Locale("mk","MK"), viewName);
     }
 
     @FXML
     public void spanish(ActionEvent event) {
         hideWindow();
-        ClientApplication.loadSceneWithLanguage(new Stage(), new Locale("es","SV"), viewName);
+        Application.loadSceneWithLanguage(new Stage(), new Locale("es","SV"), viewName);
     }
 
     protected void hideWindow() {
