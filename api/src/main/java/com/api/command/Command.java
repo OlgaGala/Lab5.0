@@ -43,7 +43,7 @@ public abstract class Command {
         validator = factory.getValidator();
     }
 
-    public abstract String execute(MessageReq message) throws Exception;
+    public abstract Object execute(MessageReq message) throws Exception;
 
     protected String getArg(String command) {
         return command.split(" ")[1];

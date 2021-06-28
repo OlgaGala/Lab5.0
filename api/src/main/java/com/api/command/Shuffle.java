@@ -14,11 +14,11 @@ public class Shuffle extends Command {
     }
 
     @Override
-    public String execute(MessageReq ignore) {
+    public Stack<Dragon> execute(MessageReq ignore) {
 
         Collections.shuffle(getDragonList());
 
-        return getFormatter().formatCollection(getDragonList());
+        return getDragonList();
     }
 
     @Override

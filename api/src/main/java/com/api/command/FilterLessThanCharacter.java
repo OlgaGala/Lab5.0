@@ -19,7 +19,7 @@ public class FilterLessThanCharacter extends Command {
     }
 
     @Override
-    public String execute(MessageReq message) {
+    public Stack<Dragon> execute(MessageReq message) {
 
         String character = getArg(message.getCommand());
 
@@ -28,7 +28,7 @@ public class FilterLessThanCharacter extends Command {
                 .filter(d -> d.getCharacter() != null && d.getCharacter().compareTo(DragonCharacter.valueOf(character)) < 0)
                 .collect(Collectors.toList());
 
-        return getFormatter().formatCollection(resultList);
+        return (Stack<Dragon>) resultList;
     }
 
     @Override

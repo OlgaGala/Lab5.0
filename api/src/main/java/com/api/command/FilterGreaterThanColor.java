@@ -19,7 +19,7 @@ public class FilterGreaterThanColor extends Command {
     }
 
     @Override
-    public String execute(MessageReq message) {
+    public Stack<Dragon> execute(MessageReq message) {
 
         String color = getArg(message.getCommand());
 
@@ -28,7 +28,7 @@ public class FilterGreaterThanColor extends Command {
                 .filter(d -> d.getColor() != null && d.getColor().compareTo(Color.valueOf(color)) > 0)
                 .collect(Collectors.toList());
 
-        return getFormatter().formatCollection(resultList);
+        return (Stack<Dragon>) resultList;
     }
 
     @Override

@@ -15,13 +15,11 @@ public class Show extends Command {
     }
 
     @Override
-    public String execute(MessageReq ignore) {
-        return getFormatter().formatCollection(
-                getDragonList()
+    public Stack<Dragon> execute(MessageReq ignore) {
+        return (Stack<Dragon>) getDragonList()
                         .stream()
                         .sorted((o1, o2) -> Comparator.comparing(Dragon::getName).compare(o1, o2))
-                        .collect(Collectors.toList())
-        );
+                        .collect(Collectors.toList());
     }
 
     @Override
