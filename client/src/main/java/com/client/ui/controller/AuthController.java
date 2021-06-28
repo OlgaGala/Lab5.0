@@ -3,8 +3,7 @@ package com.client.ui.controller;
 import com.api.entity.User;
 import com.api.i18n.Messenger;
 import com.api.i18n.MessengerFactory;
-import com.client.Client;
-import com.client.ClientApplication;
+import com.client.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -28,7 +27,7 @@ public class AuthController extends GenericController {
     @FXML
     public void login(ActionEvent event) {
         try {
-            ClientApplication.getClient().signIn(new User(getNameField().getText(), passwordField.getText()));
+            Application.getClient().signIn(new User(getNameField().getText(), passwordField.getText()));
             showMainScene();
         } catch (Exception e) {
             e.printStackTrace();
@@ -39,7 +38,7 @@ public class AuthController extends GenericController {
     @FXML
     public void register(ActionEvent event) {
         try {
-            ClientApplication.getClient().signUp(new User(getNameField().getText(), passwordField.getText()));
+            Application.getClient().signUp(new User(getNameField().getText(), passwordField.getText()));
             showMainScene();
         } catch (Exception e) {
             showWarning("registrationFailure");
@@ -56,7 +55,7 @@ public class AuthController extends GenericController {
 
     private void showMainScene() {
         hideWindow();
-        ClientApplication.loadSceneWithLanguage(new Stage(), messenger.getBundle().getLocale(), "main.fxml");
+        Application.loadSceneWithLanguage(new Stage(), messenger.getBundle().getLocale(), "main.fxml");
     }
 
 }
