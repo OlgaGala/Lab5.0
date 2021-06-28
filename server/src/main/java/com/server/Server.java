@@ -2,18 +2,12 @@ package com.server;
 
 import com.api.command.Exit;
 import com.api.command.Save;
-import com.api.command.manager.CommandManager;
-import com.api.dao.DragonDao;
-import com.api.dao.UserDao;
 import com.api.entity.User;
 import com.api.i18n.Messenger;
 import com.api.i18n.MessengerFactory;
 import com.api.message.MessageReq;
 import com.api.message.MessageResp;
-import com.api.print.implementation.FormatterImpl;
-import com.api.print.implementation.PrinterImpl;
-import com.api.service.DragonService;
-import com.api.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.SerializationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,9 +31,10 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+@RequiredArgsConstructor
 public class Server {
 
-    private final static Logger logger = LoggerFactory.getLogger(Server.class);
+    private static final Logger logger = LoggerFactory.getLogger(Server.class);
     private static final Messenger messenger = MessengerFactory.getMessenger();
 
     private ExecutorService requestExecutor;
@@ -47,18 +42,14 @@ public class Server {
 
     private ServerSocketChannel serverSocket;
     private Selector selector;
+
     private final ServerHelper serverHelper;
 
     private List<User> users;
 
     // Используем ReadWriteLock для обеспечения потокобезопасности использования коллекции users
     private final ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
-    private final Lock readLock = readWriteLock.readLock();
     private final Lock writeLock = readWriteLock.writeLock();
-
-    public Server(ServerHelper serverHelper) {
-        this.serverHelper = serverHelper;
-    }
 
     public void init() throws IOException {
         // Получаем Selector
@@ -197,6 +188,10 @@ public class Server {
         responseBuffer.clear();
     }
 
+    /**
+     * Регистрирует новое подключение
+     * @throws IOException - В случае IO Exception
+     */
     private void register(Selector selector, ServerSocketChannel serverSocket) throws IOException {
         // Принимаем клиента
         SocketChannel client = serverSocket.accept();
@@ -233,6 +228,7 @@ public class Server {
             for (User u : users) {
                 if (u.getName().equals(message.getUser().getName())) {
                     result.setResult(ServerHelper.FR);
+                    u.setAddress(client.socket().getRemoteSocketAddress().toString());
                     break;
                 }
             }
@@ -246,24 +242,6 @@ public class Server {
         } finally {
             writeLock.unlock();
         }
-    }
-
-    public static void main(String[] args) throws Exception {
-
-        DragonService dragonService = new DragonService(new DragonDao());
-        UserService userService = new UserService(new UserDao());
-
-        new Server(
-                new ServerExecutorBuilder()
-                        .setDataSet(dragonService.findAll())
-                        .setCommandManager(new CommandManager())
-                        .setFormatter(new FormatterImpl())
-                        .setPrinter(new PrinterImpl())
-                        .setDragonService(dragonService)
-                        .setUserDao(userService)
-                        .build()
-        ).start();
-
     }
 
 }

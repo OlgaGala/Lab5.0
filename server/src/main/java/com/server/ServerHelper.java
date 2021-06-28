@@ -8,25 +8,26 @@ import com.api.print.api.Formatter;
 import com.api.print.api.Printer;
 import com.api.service.DragonService;
 import com.api.service.UserService;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Stack;
 
+
+/**
+ * Util класс, хранящий всю необходимую информацию о коллекции, сервисах и зарегистрированных пользователях
+ */
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter @Setter
+@Getter @Setter @Builder
 public class ServerHelper {
+
+    private static final Messenger messenger = MessengerFactory.getMessenger();
 
     // Константы, служащие флагами при регистрации/авторизации пользователя
     public static final String SL = "success_login";
     public static final String FL = "failure_login";
     public static final String SR = "success_registration";
     public static final String FR = "failure_registration";
-
-    private static final Messenger messenger = MessengerFactory.getMessenger();
 
     private Stack<Dragon> mDataSet;
     private CommandManager commandManager;
