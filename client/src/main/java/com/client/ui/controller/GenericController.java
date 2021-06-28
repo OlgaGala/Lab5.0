@@ -22,6 +22,9 @@ public class GenericController {
     @FXML
     private TextField nameField;
 
+    /**
+     * Имя текущей view
+     */
     private final String viewName;
 
     public GenericController(String viewName) {
@@ -60,6 +63,21 @@ public class GenericController {
         Application.loadSceneWithLanguage(new Stage(), new Locale("es","SV"), viewName);
     }
 
+    /**
+     * Вызывает диалоговое окно с предупреждением
+     * @param waningBody - текст с предупреждением или ошибкой
+     */
+    protected void showWarning(String waningBody) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(messenger.getMessage("warning"));
+        alert.setHeaderText(messenger.getMessage("warning"));
+        alert.setContentText(messenger.getMessage(waningBody));
+        alert.showAndWait();
+    }
+
+    /**
+     * Скрывает текущее окно
+     */
     protected void hideWindow() {
         Window stageP = nameField.getScene().getWindow();
         stageP.hide();

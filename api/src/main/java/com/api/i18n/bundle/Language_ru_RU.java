@@ -33,6 +33,7 @@ public class Language_ru_RU extends ListResourceBundle {
                 {"info","Инфо"},
                 {"coordinate_view","Координатное представление"},
                 {"enums","Перечисления"},
+                {"submit_warning", "Ошибка выполнения команды"},
 
 
                 // Dragon info

@@ -45,14 +45,6 @@ public class AuthController extends GenericController {
         }
     }
 
-    private void showWarning(String waningBody) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle(messenger.getMessage("register"));
-        alert.setHeaderText(messenger.getMessage("warning"));
-        alert.setContentText(messenger.getMessage(waningBody));
-        alert.showAndWait();
-    }
-
     private void showMainScene() {
         hideWindow();
         Application.loadSceneWithLanguage(new Stage(), messenger.getBundle().getLocale(), "main.fxml");
