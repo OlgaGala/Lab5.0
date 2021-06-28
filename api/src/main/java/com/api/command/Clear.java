@@ -13,9 +13,9 @@ public class Clear extends Command {
     }
 
     @Override
-    public String execute(MessageReq ignore) {
+    public Stack<Dragon> execute(MessageReq ignore) {
         getDragonList().clear();
-        return getFormatter().formatBooleanOperation(true);
+        return getDragonList();
     }
 
     @Override

@@ -16,19 +16,15 @@ public class RemoveById extends Command {
     }
 
     @Override
-    public String execute(MessageReq message) {
+    public Stack<Dragon> execute(MessageReq message) {
 
-        Dragon dragon = getDragonList()
+        getDragonList()
                 .stream()
                 .filter(d -> d.getId().equals(Integer.parseInt(message.getCommand().split(" ")[1])))
                 .findFirst()
-                .orElse(null);
+                .ifPresent(dragon -> getDragonService().delete(dragon, message.getUser()));
 
-        if(dragon != null && getDragonService().delete(dragon, message.getUser())) {
-            return getFormatter().formatBooleanOperation(true);
-        }
-
-        return getFormatter().formatBooleanOperation(false);
+        return getDragonList();
     }
 
     @Override

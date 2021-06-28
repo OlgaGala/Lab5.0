@@ -16,18 +16,17 @@ public class RemoveAtIndex extends Command {
     }
 
     @Override
-    public String execute(MessageReq message) {
+    public Stack<Dragon> execute(MessageReq message) {
 
         int index = Integer.parseInt(getArg(message.getCommand()));
 
         for (int i = 0; i < getDragonList().size(); i++) {
             if(index == i && getDragonService().delete(getDragonList().get(i), message.getUser())) {
                 getDragonList().remove(getDragonList().get(i));
-                return getFormatter().formatBooleanOperation(true);
             }
         }
 
-        return getFormatter().formatBooleanOperation(false);
+        return getDragonList();
     }
 
     @Override

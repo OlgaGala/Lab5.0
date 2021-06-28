@@ -26,7 +26,7 @@ public class ExecuteScript extends Command {
 
 
     @Override
-    public String execute(MessageReq message) throws Exception {
+    public Stack<Dragon> execute(MessageReq message) throws Exception {
         return execute_script(getArg(message.getCommand()), message);
     }
 
@@ -37,7 +37,7 @@ public class ExecuteScript extends Command {
      * @return - Результат работы всего скрипта
      * @throws Exception - В случае отсутствия файла или ошибок в скрипте
      */
-    public String execute_script(String fileName, MessageReq messageReq) throws Exception {
+    public Stack<Dragon> execute_script(String fileName, MessageReq messageReq) throws Exception {
 
         this.userInput = new FileUserInput(new Scanner(new File(fileName)));
 
@@ -60,7 +60,7 @@ public class ExecuteScript extends Command {
                 }
             }
 
-            return result.toString();
+            return getDragonList();
 
         } catch (IOException e) {
             throw new Exception(e.getMessage());

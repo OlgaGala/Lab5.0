@@ -28,7 +28,7 @@ public class Add extends Command {
     }
 
     @Override
-    public String execute(MessageReq message) throws Exception {
+    public Stack<Dragon> execute(MessageReq message) throws Exception {
 
         Dragon dragon = ((MessageReqObj) message).getDragon();
 
@@ -39,14 +39,11 @@ public class Add extends Command {
             if(getDragonService().save(dragon, message.getUser()) != null) {
                 getDragonList().add(dragon);
                 settleIds();
-                return getFormatter().formatBooleanOperation(true);
-            } else {
-                return getFormatter().formatBooleanOperation(false);
             }
         }
 
         violations.forEach(v -> System.err.println(v.getMessage()));
-        return getFormatter().formatBooleanOperation(false);
+        return getDragonList();
     }
 
     @Override

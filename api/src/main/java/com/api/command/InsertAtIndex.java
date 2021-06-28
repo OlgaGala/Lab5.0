@@ -24,7 +24,7 @@ public class InsertAtIndex extends Command {
     }
 
     @Override
-    public String execute(MessageReq message) throws Exception {
+    public Stack<Dragon> execute(MessageReq message) throws Exception {
 
         String index = getArg(message.getCommand());
 
@@ -35,16 +35,11 @@ public class InsertAtIndex extends Command {
         if(violations.isEmpty()) {
 
             Dragon dragon1 = getDragonList().set(Integer.parseInt(index), dragon);
-
-            if(dragon1 != null && getDragonService().update(dragon1, message.getUser())) {
-                return getFormatter().formatBooleanOperation(true);
-            } else {
-                return getFormatter().formatBooleanOperation(false);
-            }
+            getDragonService().update(dragon1, message.getUser());
         }
 
         violations.forEach(v -> System.err.println(v.getMessage()));
-        return getFormatter().formatBooleanOperation(false);
+        return getDragonList();
     }
 
     @Override

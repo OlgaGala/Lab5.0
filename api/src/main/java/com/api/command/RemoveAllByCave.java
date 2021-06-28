@@ -25,7 +25,7 @@ public class RemoveAllByCave extends Command {
     }
 
     @Override
-    public String execute(MessageReq message) throws Exception {
+    public Stack<Dragon> execute(MessageReq message) throws Exception {
 
         DragonCave dragonCave = ((MessageReqObj) message).getDragon().getCave();
 
@@ -39,12 +39,10 @@ public class RemoveAllByCave extends Command {
                     getDragonList().remove(getDragonList().get(i));
                 }
             }
-
-            return getFormatter().formatBooleanOperation(true);
         }
 
         violations.forEach(v -> System.err.println(v.getMessage()));
-        return getFormatter().formatBooleanOperation(false);
+        return getDragonList();
     }
 
     @Override
