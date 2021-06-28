@@ -4,6 +4,9 @@ import com.api.entity.*;
 
 import static com.api.entity.Dragon.messenger;
 
+/**
+ * Класс служит валидатором объекта Dragon при вводе объекта через формы в UI.
+ */
 public class ViewValidator {
 
     public static Dragon validateAndCreate(

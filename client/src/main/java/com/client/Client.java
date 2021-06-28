@@ -14,10 +14,17 @@ import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 
+/**
+ * Класс хранит логику клиента приложения.
+ * Реализует методы аутентификации клиента, а также послания запросов и принятия ответов от сервера.
+ */
 public class Client {
 
     private SocketChannel server;
 
+    /**
+     * Текущий авторизованный пользователь
+     */
     @Getter(AccessLevel.PUBLIC)
     private User user;
 
@@ -29,6 +36,10 @@ public class Client {
         }
     }
 
+    /**
+     * Метод открывает соединение с сервером через SocketChannel
+     * @throws Exception - В случае, если сервер недоступен
+     */
     public void open() throws Exception {
         try {
             server = SocketChannel.open(new InetSocketAddress("localhost", 5454));
@@ -39,7 +50,10 @@ public class Client {
         }
     }
 
-    // Вход
+    /**
+     * Метод посылает запрос серверу с просьбой войти в уже существующий аккаунт
+     * @param user - объект, хранящий пароль и логин от аккаунта
+     */
     public void signIn(User user) {
 
         MessageResp response = sendRequest(new MessageReq(user,"login"));
@@ -51,7 +65,10 @@ public class Client {
         this.user = user;
     }
 
-    // Регистрация
+    /**
+     * Метод посылает запрос серверу с просьбой зарегистрировать новый аккаунт
+     * @param user - объект, хранящий пароль и логин от аккаунта
+     */
     public void signUp(User user) {
 
         MessageResp response = sendRequest(new MessageReq(user,"registration"));
@@ -63,6 +80,11 @@ public class Client {
         this.user = user;
     }
 
+    /**
+     * Метод отправляет запрос на сервер в виде объекта Message
+     * @param message - DTO объект
+     * @return - объект, хранящий результат выполнения запроса
+     */
     public MessageResp sendRequest(MessageReq message) {
         // Сериализуем Message и обертываем его в ByteBuffer
         ByteBuffer requestBuffer = ByteBuffer.wrap(SerializationUtils.serialize(message));
@@ -79,6 +101,11 @@ public class Client {
         return null;
     }
 
+    /**
+     * Метод принимает ответ от сервера в виде объекта Message
+     * @return - объект, хранящий результат выполнения запроса
+     * @throws Exception - В случае внутренней ошибки сервера
+     */
     public MessageResp getResponse() throws Exception {
         // Инициализируем ByteBuffer
         ByteBuffer responseBuffer = ByteBuffer.allocate(1024 * 1024);
@@ -103,7 +130,10 @@ public class Client {
         return new MessageReqObj(command, dragon);
     }
 
-
+    /**
+     * Метод завершает работу клиентского приложения
+     * @param message - Строка, выводимая в консоль после завершения.
+     */
     public void stop(String message) {
         System.out.println(message);
         System.exit(0);

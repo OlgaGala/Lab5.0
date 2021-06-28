@@ -18,15 +18,27 @@ import java.util.TimerTask;
 
 import static com.client.Application.getClient;
 
+/**
+ * Таблица для работы с объектами Dragon
+ */
 @Getter @Setter
 public class CustomTableView extends TimerTask {
 
     private static final Messenger messenger = MessengerFactory.getMessenger();
 
+    /**
+     * Содержимое таблицы
+     */
     private Stack<Dragon> storage;
 
+    /**
+     * TableView, которым управляет наш класс
+     */
     private final  TableView<Dragon> tableView;
 
+    /**
+     * Поле, необходимое для отрисовки 2D графики на Canvas.
+     */
     private final GraphicsContext gc;
 
     public CustomTableView(TableView<Dragon> tableView, GraphicsContext gc) {
@@ -40,13 +52,33 @@ public class CustomTableView extends TimerTask {
 
     @Override
     public void run() {
-
         // Connect to server and get all available entities
         storage = (Stack<Dragon>) getClient().sendRequest(new MessageReq(getClient().getUser(),"show")).getResult();
+
+        // Refresh the table to see actual list of entities
+        refreshTable();
     }
 
+    /**
+     * Обновляет таблицу, чтобы, в случае изменения коллекции, отобразить актуальное содержимое
+     */
+    public void refreshTable() {
+        // Clear canvas
+        gc.clearRect(0, 0, 351, 380);
 
-    public void createTable() {
+        // Fill canvas with new dragons
+        storage.forEach(this::drawDragon);
+
+        // Fill the table with new dragon entities
+        storage.forEach(x -> tableView.getItems().add(x));
+
+        tableView.refresh();
+    }
+
+    /**
+     * Создает таблицу с полями класса Dragon в качестве столбцов
+     */
+    private void createTable() {
 
         TableColumn<Dragon, Dragon> idColumn = new TableColumn<>(messenger.getMessage("id"));
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -91,7 +123,11 @@ public class CustomTableView extends TimerTask {
         );
     }
 
-    public void drawDragon(Dragon dragon) {
+    /**
+     * Рисует объект на canvas в виде координатной оси.
+     * @param dragon - данный объект
+     */
+    private void drawDragon(Dragon dragon) {
 
         double xC = dragon.getCoordinates().getX();
         int yC = dragon.getCoordinates().getY();
@@ -129,19 +165,6 @@ public class CustomTableView extends TimerTask {
         gc.restore();
         gc.closePath();
 
-    }
-
-    public void refreshTable() {
-        // Clear canvas
-        gc.clearRect(0, 0, 351, 380);
-
-        // Fill canvas with new dragons
-        storage.forEach(this::drawDragon);
-
-        // Fill the table with new dragon entities
-        storage.forEach(x -> tableView.getItems().add(x));
-
-        tableView.refresh();
     }
 
 }

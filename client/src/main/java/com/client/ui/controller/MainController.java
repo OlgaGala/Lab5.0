@@ -90,12 +90,18 @@ public class MainController extends GenericController implements Initializable {
      */
     private CustomTableView customTableView;
 
+    /**
+     * Используем Timer для автоматического периодического обновления таблицы
+     */
     private Timer timer;
 
     public MainController() {
         super("main.fxml");
     }
 
+    /**
+     * Метод заполняет объекты ChoiceBox при загрузке страницы
+     */
     private void init() {
         nickname.setAlignment(Pos.CENTER_RIGHT);
         nickname.setText(Application.getClient().getUser().getName());
@@ -180,9 +186,10 @@ public class MainController extends GenericController implements Initializable {
         name.setText(selected.getName());
         xCoordinate.setText(String.valueOf(selected.getCoordinates().getX()));
         yCoordinate.setText(String.valueOf(selected.getCoordinates().getY()));
-
-
-        // TODO continue
+        age.setText(String.valueOf(selected.getAge()));
+        color.setValue(selected.getColor().name());
+        type.setValue(selected.getType().name());
+        character.setValue(selected.getCharacter().name());
     }
 
     /**

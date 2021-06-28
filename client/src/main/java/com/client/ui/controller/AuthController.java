@@ -12,6 +12,9 @@ import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Контроллер, которы хранит логику аутентификации клиента через UI формы
+ */
 @Getter @Setter
 public class AuthController extends GenericController {
 

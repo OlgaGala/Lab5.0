@@ -14,6 +14,9 @@ import lombok.Setter;
 
 import java.util.Locale;
 
+/**
+ * Базовый контроллер, хранящий методы, которые используются сразу в нескольких котроллерах
+ */
 @Getter @Setter
 public class GenericController {
 
