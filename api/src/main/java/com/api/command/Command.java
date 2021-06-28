@@ -34,10 +34,12 @@ public abstract class Command {
     private Validator validator;
 
     public Command(Stack<Dragon> dragonList, DragonService dragonService) {
+
         this.dragonList = dragonList;
+        this.dragonService = dragonService;
+
         this.formatter = new FormatterImpl();
 
-        this.dragonService = dragonService;
 
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         validator = factory.getValidator();
@@ -47,20 +49,6 @@ public abstract class Command {
 
     protected String getArg(String command) {
         return command.split(" ")[1];
-    }
-
-    public static Class<? extends Command> validateCommand(String commandName) {
-
-        Reflections reflections = new Reflections("com.api");
-        Set<Class<? extends Command>> classes = reflections.getSubTypesOf(Command.class);
-
-        for (Class<? extends Command> c: classes) {
-            if(c.getSimpleName().equalsIgnoreCase(commandName)) {
-                return c;
-            }
-        }
-
-        throw new NoSuchCommandException("Такой команды не существует");
     }
 
     protected void settleIds() {

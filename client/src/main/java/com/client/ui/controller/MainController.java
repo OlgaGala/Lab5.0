@@ -1,5 +1,6 @@
 package com.client.ui.controller;
 
+import com.api.command.Command;
 import com.api.command.manager.CommandManager;
 import com.api.entity.Color;
 import com.api.entity.Dragon;
@@ -7,8 +8,11 @@ import com.api.entity.DragonCharacter;
 import com.api.entity.DragonType;
 import com.api.i18n.Messenger;
 import com.api.i18n.MessengerFactory;
+import com.api.message.MessageReq;
+import com.api.message.MessageReqObj;
 import com.client.Application;
 import com.client.ui.util.CustomTableView;
+import com.client.ui.util.ViewValidator;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -165,7 +169,39 @@ public class MainController extends GenericController implements Initializable {
     @FXML
     public void submit(ActionEvent event) {
         try {
-            // TODO get chosen command from command list choice box
+            // Получаем команду, которую ввел пользователь
+            Class<? extends Command> command = CommandManager.validateCommand(commandsList.getValue());
+
+            // Проверяем, нужно ли передать объект Dragon серверу
+            if(CommandManager.checkAttachedAnnotation(command)) {
+                Application
+                        .getClient()
+                        .sendRequest(
+                                new MessageReqObj(
+                                        Application.getClient().getUser(), // User
+                                        command.getSimpleName(), // Command name
+                                        ViewValidator.validateAndCreate(
+                                                name.getText(),
+                                                "["+ xCoordinate.getText() + ", " + yCoordinate.getText() + "]",
+                                                age.getText(),
+                                                color.getValue(),
+                                                type.getValue(),
+                                                character.getValue(),
+                                                depth.getText(),
+                                                numberOfTreasure.getText(),
+                                                Application.getClient().getUser().getName()
+                                        ) // Attached obj
+                                )
+                        );
+            } else {
+                Application.getClient().sendRequest(
+                        new MessageReq(Application.getClient().getUser(), command.getSimpleName())
+                );
+            }
+
+            // Обновляем таблицу после отправки запроса
+            customTableView.refreshTable();
+
         } catch (Exception e) {
             showWarning(messenger.getMessage("submit_warning"));
         }

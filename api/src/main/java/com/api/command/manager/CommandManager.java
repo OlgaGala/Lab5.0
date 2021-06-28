@@ -6,6 +6,7 @@ import com.api.command.annotation.AttachedObj;
 import com.api.command.annotation.AttachedObjFactory;
 import com.api.entity.Dragon;
 import com.api.entity.User;
+import com.api.exception.NoSuchCommandException;
 import com.api.i18n.Messenger;
 import com.api.i18n.MessengerFactory;
 import com.api.message.MessageReq;
@@ -49,31 +50,27 @@ public class CommandManager {
     private final Lock writeLock = readWriteLock.writeLock();
 
     public MessageResp executeCommand(MessageReq message) throws Exception {
-
         MessageResp messageResult = new MessageResp();
-
-        Reflections reflections = new Reflections("com.api");
-        Set<Class<? extends Command>> classes = reflections.getSubTypesOf(Command.class);
 
         logger.info("Execute command: " + message.getCommand());
 
         String commandName = message.getCommand().split(" ")[0];
 
         final Command[] command = new Command[1];
-        classes.forEach(c -> {
+
+        getCommandClassList().forEach(c -> {
             if(c.getSimpleName().equalsIgnoreCase(commandName)) {
                 try {
                     if(commandName.equalsIgnoreCase("executescript")) {
-                        Constructor<ExecuteScript> constructor = ExecuteScript.class.getConstructor(Stack.class, DragonService.class);
-
-                        ExecuteScript executeScript = constructor.newInstance(mDataSet, dragonService);
+                        ExecuteScript executeScript = ExecuteScript.class
+                                .getConstructor(Stack.class, DragonService.class)
+                                .newInstance(mDataSet, dragonService);
                         executeScript.setCommandManager(this);
-
                         command[0] = executeScript;
-
                     } else {
-                        Constructor<? extends Command> constructor = c.getConstructor(Stack.class, DragonService.class);
-                        command[0] = constructor.newInstance(mDataSet, dragonService);
+                        command[0] = c
+                                .getConstructor(Stack.class, DragonService.class)
+                                .newInstance(mDataSet, dragonService);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -97,19 +94,29 @@ public class CommandManager {
         return messageResult;
     }
 
-    public static String[] getCommandNames() {
+    private static Set<Class<? extends Command>> getCommandClassList() {
         Reflections reflections = new Reflections("com.api");
-        Set<Class<? extends Command>> classes = reflections.getSubTypesOf(Command.class);
-        return classes.stream().map(c -> c.getSimpleName().toLowerCase(Locale.ROOT)).toArray(String[]::new);
+        return reflections.getSubTypesOf(Command.class);
     }
 
-    public static Dragon validateAnnotation(Class<? extends Command> c, User user) throws Exception {
+    public static String[] getCommandNames() {
+        return getCommandClassList()
+                .stream()
+                .map(c -> c.getSimpleName().toLowerCase(Locale.ROOT))
+                .toArray(String[]::new);
+    }
 
-        if(c.isAnnotationPresent(AttachedObj.class)) {
-            AttachedObj attachedObj = c.getAnnotation(AttachedObj.class);
-
-            return AttachedObjFactory.newInstance(attachedObj.type(), user);
+    public static Class<? extends Command> validateCommand(String commandName) {
+        for (Class<? extends Command> c: getCommandClassList()) {
+            if(c.getSimpleName().equalsIgnoreCase(commandName)) {
+                return c;
+            }
         }
-        return null;
+        throw new NoSuchCommandException("Такой команды не существует");
     }
+
+    public static boolean checkAttachedAnnotation(Class<? extends Command> c) throws Exception {
+        return c.isAnnotationPresent(AttachedObj.class);
+    }
+
 }
