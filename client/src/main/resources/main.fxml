@@ -28,8 +28,12 @@
             <MenuItem mnemonicParsing="false" onAction="#macedonian" text="Macedonian"/>
             <MenuItem mnemonicParsing="false" onAction="#spanish" text="Spanish"/>
         </Menu>
-        <Menu mnemonicParsing="false" text="%help" onAction="#showHelp"/>
-        <Menu mnemonicParsing="false" text="%logOut" onAction="#logOut"/>
+        <Menu mnemonicParsing="false" text="%help">
+            <MenuItem mnemonicParsing="false" onAction="#showHelp" text="%help"/>
+        </Menu>
+        <Menu mnemonicParsing="false" text="%logOut">
+            <MenuItem mnemonicParsing="false" onAction="#logOut" text="%logOut"/>
+        </Menu>
     </MenuBar>
 
     <HBox id="hboxHigh" prefHeight="36.0" prefWidth="810.0" stylesheets="@main.css">
@@ -54,24 +58,9 @@
             <Insets/>
         </VBox.margin>
 
-        <AnchorPane id="anchorpane" fx:id="pane" onDragDetected="#drag" onMouseReleased="#mouseReleased"
-                    onScroll="#scroll" prefHeight="449.0" prefWidth="392.0">
-            <Label alignment="CENTER" layoutX="134.0" layoutY="13.0" prefHeight="23.0" prefWidth="118.0"
-                   text="%dragons">
-                <font>
-                    <Font size="18.0"/>
-                </font>
-            </Label>
-            <Pane layoutX="208.0" layoutY="12.0" onMouseClicked="#getDragon" prefHeight="200.0" prefWidth="200.0"/>
-            <Pane id="pane1" layoutX="25.0" layoutY="47.0" onMouseClicked="#getDragon" prefHeight="378.0"
-                  prefWidth="351.0"/>
-            <Canvas fx:id="canvasForSelection" blendMode="SRC_ATOP" disable="true" height="380.0" layoutX="25.0"
-                    layoutY="47.0" onDragDetected="#drag" onMouseClicked="#getDragon" width="351.0"/>
-            <Canvas fx:id="canvas" blendMode="SRC_ATOP" disable="true" height="380.0" layoutX="25.0" layoutY="47.0"
-                    onDragDetected="#drag" onMouseClicked="#getDragon" width="351.0"/>
-            <TableView fx:id="table" layoutX="24.0" layoutY="47.0" onMouseClicked="#getDragonFromTable"
-                       prefHeight="380.0" prefWidth="351.0" stylesheets="@main.css"/>
-        </AnchorPane>
+        <VBox prefHeight="449.0" prefWidth="392.0">
+            <TableView fx:id="table"/>
+        </VBox>
 
         <AnchorPane id="anchorPane2" prefHeight="508.0" prefWidth="400.0">
             <Label alignment="CENTER" layoutX="79.0" layoutY="13.0" prefHeight="23.0" prefWidth="232.0"
@@ -110,6 +99,9 @@
                 <Label alignment="CENTER" layoutX="223.0" layoutY="45.0" prefHeight="17.0" prefWidth="150.0" text="%location"/>
                 <TextField fx:id="xCoordinate" layoutX="214.0" layoutY="69.0" promptText="%xCoordinate"/>
                 <TextField fx:id="yCoordinate" layoutX="214.0" layoutY="108.0" promptText="%yCoordinate"/>
+
+                <Label alignment="CENTER" layoutX="403.0" layoutY="45.0" prefHeight="17.0" prefWidth="150.0" text="id"/>
+                <TextField fx:id="id" layoutX="394.0" layoutY="69.0" promptText="id"/>
 
 
                 <Pane layoutY="147.0" prefHeight="122.0" prefWidth="392.0">
