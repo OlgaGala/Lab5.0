@@ -26,8 +26,8 @@ public class Help extends Command {
         classes.forEach(c -> {
 
             try {
-                Constructor<? extends Command> constructor = c.getConstructor(Stack.class);
-                Command command = constructor.newInstance(getDragonList());
+                Constructor<? extends Command> constructor = c.getConstructor(Stack.class, DragonService.class);
+                Command command = constructor.newInstance(getDragonList(), getDragonService());
                 result.append(command).append("\n");
             } catch (Exception e) {
                 e.printStackTrace();
